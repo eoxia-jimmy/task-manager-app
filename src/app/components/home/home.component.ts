@@ -42,19 +42,19 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-		this.refreshData();
-		if ( localStorage.getItem( 'connected' ) == 'true' ) {
-			this.title = "Vous êtes connecté!";
-			this.exempleRequest();
-		} else {
-			if ( localStorage.getItem( 'oauth_verifier' ) ) {
-				this.giveAccess();
-			} else if ( token.key ) {
-				this.openAuthorize();
-			} else {
-				this.makeFirstRequest();
-			}
-		}
+		// this.refreshData();
+		// if ( localStorage.getItem( 'connected' ) == 'true' ) {
+		// 	this.title = "Vous êtes connecté!";
+		// 	this.exempleRequest();
+		// } else {
+		// 	if ( localStorage.getItem( 'oauth_verifier' ) ) {
+		// 		this.giveAccess();
+		// 	} else if ( token.key ) {
+		// 		this.openAuthorize();
+		// 	} else {
+		// 		this.makeFirstRequest();
+		// 	}
+		// }
   }
 
 	makeFirstRequest() {
