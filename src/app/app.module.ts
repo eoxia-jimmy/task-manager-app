@@ -19,7 +19,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { AppsComponent } from './components/apps/apps.component';
 
 import { AppService } from './services/app/app.service';
-import { AuthService } from './services/auth/auth.service';
+// import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { AuthService } from './services/auth/auth.service';
     AppRoutingModule,
 		HttpClientModule
   ],
-  providers: [ElectronService, AuthService, AppService],
+  providers: [ElectronService, AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
