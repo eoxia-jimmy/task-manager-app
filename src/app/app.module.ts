@@ -1,6 +1,7 @@
 import 'zone.js/dist/zone-mix';
 import 'reflect-metadata';
 import 'polyfills';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +35,7 @@ import { AuthService } from './services/auth/auth.service';
     AppRoutingModule,
 		HttpClientModule
   ],
-  providers: [ElectronService, AppService, AuthService],
+  providers: [ElectronService, AuthService, AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

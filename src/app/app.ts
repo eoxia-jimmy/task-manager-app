@@ -1,4 +1,10 @@
 export class App {
-	id: number;
-	name: string;
+	constructor(
+		public id: number,
+		public name: string,
+		public url: string,
+		public customerKey: string,
+		public customerSecret: string
+	) {}
+
 }

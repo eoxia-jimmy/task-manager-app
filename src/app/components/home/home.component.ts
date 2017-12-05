@@ -9,7 +9,7 @@ var OAuth = require('oauth-1.0a.js');
 const BrowserWindow = require('electron').remote.BrowserWindow
 
 const oauth = OAuth({
-  consumer: { key: 'MC32owCykTzj', secret: 'x5Ep94o9BEAHgzKBiD4SPMRvYLkQT9DhRQ5EL7SgKCoiM3Rm'},
+  consumer: { key: 'rTeOLWC8M1RO', secret: 'babF3e7N7ZNqMc0PRKTWAmI7UzSR43FUiqB5bXBECPF7nQgv'},
   signature_method: 'HMAC-SHA1',
   hash_function(base_string, key) {
     return crypto.createHmac('sha1', key).update(base_string).digest('base64');
@@ -36,7 +36,7 @@ let token = {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  title = `Soler Lisa & Latour Jimmy <3 !`;
+  title = `Task Manager App 0.1.0`;
 
   constructor(private http: HttpClient) {}
 
