@@ -6,18 +6,18 @@ import { of } from 'rxjs/observable/of';
 import { App } from '../../app';
 // import { APPS } from '../../mock-apps';
 
-// import { AuthService } from './../auth/auth.service';
+import { AuthService } from './../auth/auth.service';
 
 @Injectable()
 export class AppService {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
 	add(appData: App): void {
-		// this.authService.makeFirstRequest()
-		// 	.subscribe((response) => {
-		// 		console.log(response);
-		// 	});
+		this.authService.makeFirstRequest(appData)
+			.subscribe((response) => {
+				console.log(response);
+			});
 	}
 
 	getApps(): void {
