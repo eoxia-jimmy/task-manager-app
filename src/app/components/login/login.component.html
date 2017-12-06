@@ -1,0 +1,23 @@
+<div class="container">
+	<h2>Login</h2>
+
+	<div>
+		<form #appForm="ngForm">
+			<div class="form-group">
+				<label for="login">Adresse e-mail ou nom d'utilisateur</label>
+				<input type="text" class="form-control" id="login"
+					required
+					[(ngModel)]="model.login"
+					name="login" />
+			</div>
+			<div class="form-group">
+				<label for="password">Mot de passe</label>
+				<input type="text" class="form-control" id="password"
+					required
+					[(ngModel)]="model.password"
+					name="password" />
+			</div>
+			<button type="button" class="btn btn-primary" (click)="login(model);">Se Connecter</button>
+		</form>
+	</div>
+</div>

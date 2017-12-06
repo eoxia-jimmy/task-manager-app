@@ -17,6 +17,7 @@ import { ElectronService } from './providers/electron.service';
 
 import { MenuComponent } from './components/menu/menu.component';
 import { AppsComponent } from './components/apps/apps.component';
+import { LoginComponent } from './components/login/login.component';
 
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
@@ -26,7 +27,8 @@ import { AuthService } from './services/auth/auth.service';
     AppComponent,
     HomeComponent,
     MenuComponent,
-    AppsComponent
+    AppsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
