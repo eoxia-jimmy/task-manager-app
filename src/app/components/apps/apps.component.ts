@@ -10,6 +10,8 @@ import { AppService } from '../../services/app/app.service'
   styleUrls: ['./apps.component.scss']
 })
 export class AppsComponent  {
+	connected: boolean = false;
+
 	model = new App(1, 'Test', 'http://127.0.0.1/', 'JIAOJDFO', '9U89_ç' );
 
 	constructor(private appService: AppService) {}
@@ -17,4 +19,5 @@ export class AppsComponent  {
 	add(appData: App): void {
 		this.appService.add(appData);
 	}
+
 }

@@ -14,10 +14,7 @@ export class AppService {
   constructor(private authService: AuthService) { }
 
 	add(appData: App): void {
-		this.authService.makeFirstRequest(appData)
-			.subscribe((response) => {
-				console.log(response);
-			});
+
 	}
 
 	getApps(): void {

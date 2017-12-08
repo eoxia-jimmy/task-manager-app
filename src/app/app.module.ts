@@ -21,6 +21,7 @@ import { LoginComponent } from './components/login/login.component';
 
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
+import { HttpService } from './services/http/http.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { AuthService } from './services/auth/auth.service';
     AppRoutingModule,
 		HttpClientModule
   ],
-  providers: [ElectronService, AppService, AuthService],
+  providers: [ElectronService, AppService, AuthService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
