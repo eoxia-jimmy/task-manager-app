@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AppService } from './services/app/app.service';
 import { AuthService } from './services/auth/auth.service';
 import { HttpService } from './services/http/http.service';
+import { AuthDataService } from './services/auth-data/auth-data.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { HttpService } from './services/http/http.service';
     AppRoutingModule,
 		HttpClientModule
   ],
-  providers: [ElectronService, AppService, AuthService, HttpService],
+  providers: [ElectronService, AppService, AuthService, HttpService, AuthDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

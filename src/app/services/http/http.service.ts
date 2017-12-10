@@ -10,13 +10,8 @@ export class HttpService {
 
 	constructor(private httpClient: HttpClient) {}
 
-	public get(endpoint: string): Observable<any> {
-		return of();
-	}
-
-	public post(endpoint: string, body: any): Observable<any> {
+	private getOauthBasicHeader(): any {
 		let authData = window.btoa( localStorage.getItem( 'username' ) + ':' + atob( localStorage.getItem( 'password' ) ) );
-
 		let options: any = {
 			headers:  {
 				Authorization: 'Basic ' + authData
@@ -24,12 +19,21 @@ export class HttpService {
 			responseType: 'json'
 		};
 
-		let data: any;
+		return options;
+	}
 
-		this.httpClient.get( 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp/v2/users/me', options).subscribe( ( response ) => {
-			data = response;
-			return of(data);
-		});
+	public get(endpoint: string): Observable<any> {
+		let options = this.getOauthBasicHeader();
+
+		return this.httpClient.get( 'http://164.132.69.238/wp-task-manager-app/wordpress/' + endpoint, options );
+	}
+
+	public post(endpoint: string, body: any): Observable<any> {
+		let options = this.getOauthBasicHeader();
+
+		console.log(endpoint);
+
+		return this.httpClient.post( 'http://164.132.69.238/wp-task-manager-app/wordpress/' + endpoint, body, options );
 	}
 
 }
