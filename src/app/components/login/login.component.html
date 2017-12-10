@@ -18,6 +18,7 @@
 					name="password" />
 			</div>
 			<button type="button" class="btn btn-primary" (click)="login(model);">Se Connecter</button>
+			<div *ngIf="loading">Loading...</div>
 		</form>
 	</div>
 </div>

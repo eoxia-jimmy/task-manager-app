@@ -15,7 +15,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ElectronService } from './providers/electron.service';
 
-import { MenuComponent } from './components/menu/menu.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { LoginComponent } from './components/login/login.component';
 
@@ -28,7 +27,6 @@ import { AuthDataService } from './services/auth-data/auth-data.service';
   declarations: [
     AppComponent,
     HomeComponent,
-    MenuComponent,
     AppsComponent,
     LoginComponent
   ],

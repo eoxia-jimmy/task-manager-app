@@ -13,20 +13,17 @@ export class AppService {
 
 	constructor(private httpService: HttpService) { }
 
-	add(appData: App): void {
-		this.httpService.post('wp-json/tmapp/v2/user/1', {
+	add(appData: App): Observable<any> {
+		return this.httpService.post('wp-json/tmapp/v2/user/1', {
 			app_id: appData.id,
 			app_title: appData.name,
 			app_url: appData.url,
 			customer_key: appData.customerKey,
 			customer_secret: appData.customerSecret,
-
-		}).subscribe( (data) => {
-			console.log(data);
 		});
 	}
 
-	getApps(): void {
-		// return of(APPS);
+	getApps(): Observable<any> {
+		return this.httpService.get('wp-json/tmapp/v2/user/1');
 	}
 }
