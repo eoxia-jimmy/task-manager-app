@@ -22,18 +22,18 @@ export class HttpService {
 		return options;
 	}
 
-	public get(endpoint: string): Observable<any> {
+	public get(url: string, endpoint: string): Observable<any> {
 		let options = this.getOauthBasicHeader();
 
-		return this.httpClient.get( 'http://164.132.69.238/wp-task-manager-app/wordpress/' + endpoint, options );
+		return this.httpClient.get( url + endpoint, options );
 	}
 
-	public post(endpoint: string, body: any): Observable<any> {
+	public post(url: string, endpoint: string, body: any): Observable<any> {
 		let options = this.getOauthBasicHeader();
 
 		console.log(endpoint);
 
-		return this.httpClient.post( 'http://164.132.69.238/wp-task-manager-app/wordpress/' + endpoint, body, options );
+		return this.httpClient.post( url + endpoint, body, options );
 	}
 
 }

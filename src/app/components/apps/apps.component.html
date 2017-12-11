@@ -1,6 +1,6 @@
 <div *ngIf="authDataService.connected" class="menu">
 	<ul>
-		<li *ngFor="let app of apps" (click)="connect()"><span>{{app.name}}</span></li>
+		<li *ngFor="let app of apps" (click)="connect(app)"><span>{{app.name}}</span></li>
 		<li *ngIf="!apps"><span>No apps</span></li>
 		<li data-toggle="modal" data-target="#addAppModal">Add</li>
 	</ul>
@@ -42,24 +42,24 @@
 							<small id="urlHelp" class="form-text text-muted">Enter your WordPress URL with http(s) protocol.</small>
 						</div>
 						<div class="form-group">
-							<label for="key">Customer Key</label>
+							<label for="key">Username</label>
 							<input type="text" class="form-control" id="key"
-								aria-describedby="keyHelp"
-								placeholder="Enter Customer Key"
+								aria-describedby="usernameHelp"
+								placeholder="Enter your login"
 								required
-								[(ngModel)]="model.customerKey"
-								name="customerKey" />
-							<small id="keyHelp" class="form-text text-muted">Enter your WordPress Customer Key.</small>
+								[(ngModel)]="model.username"
+								name="username" />
+							<small id="usernameHelp" class="form-text text-muted">Enter your WordPress Login.</small>
 						</div>
 						<div class="form-group">
-							<label for="secret">Customer Secret</label>
+							<label for="secret">Password</label>
 							<input type="text" class="form-control" id="secret"
-								aria-describedby="urlHelp"
-								placeholder="Enter Customer Secret"
+								aria-describedby="passwordHelp"
+								placeholder="Enter your password"
 								required
-								[(ngModel)]="model.customerSecret"
-								name="customerSecret" />
-							<small id="secretHelp" class="form-text text-muted">Enter your WordPress Customer Secret.</small>
+								[(ngModel)]="model.password"
+								name="password" />
+							<small id="passwordHelp" class="form-text text-muted">Enter your WordPress password.</small>
 						</div>
 						<button type="button" class="btn btn-primary" (click)="add(model);">New App</button>
 					</form>

@@ -15,7 +15,7 @@ export class AppsComponent {
 
 	currentId: number = 1;
 
-	model = new App(1, 'Test', 'http://127.0.0.1/', 'JIAOJDFO', '9U89_ç' );
+	model = new App(1, 'Test', 'http://127.0.0.1/', 'username', 'password' );
 
 	constructor(private appService: AppService, public authDataService: AuthDataService) {
 		this.authDataService.checkConnected();
@@ -33,7 +33,7 @@ export class AppsComponent {
 
 	refreshList(appsData): void {
 		this.apps = [];
-		
+
 		for (var key in appsData) {
 
 			this.addApp( appsData[key] );
@@ -61,8 +61,8 @@ export class AppsComponent {
 		} );
 	}
 
-	connect(): void {
-
+	connect(appData: App): void {
+		this.appService.connect(appData);
 	}
 
 }

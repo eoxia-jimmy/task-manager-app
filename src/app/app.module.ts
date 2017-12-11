@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -19,7 +20,6 @@ import { AppsComponent } from './components/apps/apps.component';
 import { LoginComponent } from './components/login/login.component';
 
 import { AppService } from './services/app/app.service';
-import { AuthService } from './services/auth/auth.service';
 import { HttpService } from './services/http/http.service';
 import { AuthDataService } from './services/auth-data/auth-data.service';
 
@@ -28,7 +28,8 @@ import { AuthDataService } from './services/auth-data/auth-data.service';
     AppComponent,
     HomeComponent,
     AppsComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,7 @@ import { AuthDataService } from './services/auth-data/auth-data.service';
     AppRoutingModule,
 		HttpClientModule
   ],
-  providers: [ElectronService, AppService, AuthService, HttpService, AuthDataService],
+  providers: [ElectronService, AppService, HttpService, AuthDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
