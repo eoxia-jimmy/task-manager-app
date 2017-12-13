@@ -35,7 +35,6 @@ export class AppService {
 	}
 
 	connect(appData: App): void {
-		console.log(appData);
 		this.httpService.get(appData.url, 'wp-json/wp/v2/users/me').subscribe(response => {
 			let data: any = response;
 
@@ -43,6 +42,7 @@ export class AppService {
 			localStorage.setItem( 'currentAppUserId', data.id );
 			localStorage.setItem( 'currentAppUsername', appData.username );
 			localStorage.setItem( 'currentAppPassword', btoa( appData.password ) );
+			localStorage.setItem( 'currentAppURL', appData.url );
 
 			this.connected = true;
 		}, err => {

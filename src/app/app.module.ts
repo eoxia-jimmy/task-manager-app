@@ -18,10 +18,12 @@ import { ElectronService } from './providers/electron.service';
 
 import { AppsComponent } from './components/apps/apps.component';
 import { LoginComponent } from './components/login/login.component';
+import { TaskComponent } from './components/task/task.component';
 
 import { AppService } from './services/app/app.service';
 import { HttpService } from './services/http/http.service';
 import { AuthDataService } from './services/auth-data/auth-data.service';
+import { TaskService } from './services/task/task.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { AuthDataService } from './services/auth-data/auth-data.service';
     HomeComponent,
     AppsComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,13 @@ import { AuthDataService } from './services/auth-data/auth-data.service';
     AppRoutingModule,
 		HttpClientModule
   ],
-  providers: [ElectronService, AppService, HttpService, AuthDataService],
+  providers: [
+		ElectronService,
+		AppService,
+		HttpService,
+		AuthDataService,
+		TaskService
+	],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

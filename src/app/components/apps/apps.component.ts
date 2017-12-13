@@ -35,7 +35,6 @@ export class AppsComponent {
 		this.apps = [];
 
 		for (var key in appsData) {
-
 			this.addApp( appsData[key] );
 		}
 	}
@@ -45,8 +44,8 @@ export class AppsComponent {
 			appData.id,
 			appData.title,
 			appData.url,
-			appData.customer_key,
-			appData.customer_secret,
+			appData.username,
+			appData.password,
 		);
 
 		this.apps.push( tmpApp );
