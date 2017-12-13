@@ -2,7 +2,7 @@
 	<ul>
 		<li *ngFor="let app of apps" (click)="connect(app)"><span>{{app.name}}</span></li>
 		<li *ngIf="!apps"><span>No apps</span></li>
-		<li data-toggle="modal" data-target="#addAppModal">Add</li>
+		<li class="add" data-toggle="modal" data-target="#addAppModal">Add</li>
 	</ul>
 
 	<div id="addAppModal" class="modal" tabindex="-1" role="dialog">

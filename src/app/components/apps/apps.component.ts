@@ -61,7 +61,21 @@ export class AppsComponent {
 	}
 
 	connect(appData: App): void {
-		this.appService.connect(appData);
+		this.appService.connect(appData).subscribe(response => {
+			let data: any = response;
+
+			localStorage.setItem( 'currentAppId', appData.id.toString() );
+			localStorage.setItem( 'currentAppUserId', data.id );
+			localStorage.setItem( 'currentAppUsername', appData.username );
+			localStorage.setItem( 'currentAppPassword', btoa( appData.password ) );
+			localStorage.setItem( 'currentAppURL', appData.url );
+
+			this.AppService.connected = true;
+
+			this.getApps();
+		}, err => {
+			console.log(err);
+		});
 	}
 
 }

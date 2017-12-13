@@ -24,6 +24,7 @@ import { AppService } from './services/app/app.service';
 import { HttpService } from './services/http/http.service';
 import { AuthDataService } from './services/auth-data/auth-data.service';
 import { TaskService } from './services/task/task.service';
+import { PointService } from './services/point/point.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { TaskService } from './services/task/task.service';
 		AppService,
 		HttpService,
 		AuthDataService,
-		TaskService
+		TaskService,
+		PointService
 	],
   bootstrap: [AppComponent]
 })

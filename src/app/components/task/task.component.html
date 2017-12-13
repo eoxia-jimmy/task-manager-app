@@ -1,5 +1,69 @@
-<div>
-	<div *ngFor="let task of tasks">
-		<h2>#{{task.ID}} {{task.title}}</h2>
+<span (click)="add()">Nouvelle tâche</span>
+
+<div class="tasks">
+	<div class="task" *ngFor="let task of tasks">
+		<div class="task-content">
+
+			<ul class="task-header">
+				<li class="task-owner">JL</li>
+				<li class="task-id">#{{task.ID}}</li>
+				<li class="task-title">
+					<input type="text" value="{{task.title}}" />
+				</li>
+				<li class="task-setting">|</li>
+			</ul>
+
+			<ul class="task-sub-header">
+				<li class="task-elapsed-time">
+					(C)
+					<span>0j 0h 0min (0min)</span>
+				</li>
+			</ul>
+
+			<div class="points" *ngFor="let point of task.points">
+				<div class="point">
+					<ul class="point-container">
+						<li class="point-valid">
+							<span class="point-sortable-event">o</span>
+							<input type="checkbox" />
+						</li>
+						<li class="point-id">
+							<span>#2</span>
+						</li>
+						<li class="point-content">
+							<input type="text" name="content" value="test">
+						</li>
+
+						<li class="point-time">
+							(C)
+							<span class="wpeo-time-in-point">0</span>
+						</li>
+
+						<li class="point-setting">|</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="point-completed-toggle">
+				<p>
+					<span class="icon">+</span>
+					<span class="point-completed">Points completés&nbsp;(<span class="point"><span class="point-completed">0</span>/<span class="total-point">1</span></span>)</span>
+				</p>
+			</div>
+
+			<ul class="task-categories">
+				<li>
+					<span class="icon">+</span>
+					<span>Catégories</span>
+				</li>
+			</ul>
+
+			<ul class="task-users">
+				<li>
+					<span class="icon">+</span>
+					<span>Utilisateurs</span>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>

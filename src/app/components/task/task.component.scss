@@ -1,0 +1,159 @@
+app-task * {
+	box-sizing: border-box;
+}
+
+.task {
+	width: 50%;
+
+	.task-content {
+		background: #fff;
+		box-shadow: 1px 1px 5px 0 rgba(0,0,0,.2);
+		position: relative;
+
+		.task-header {
+			padding: 10px 14px;
+			display: flex;
+			flex-direction: row;
+			li {
+				margin: auto;
+			}
+			.task-owner {
+				padding-right: 8px;
+			}
+			.task-id {
+				width: 12%;
+				font-weight: 700;
+			}
+			.task-title {
+				width: 78%;
+				padding: 0 0 0 8px;
+				input {
+					font-weight: 300;
+					width: 100%;
+					font-size: 20px;
+					background-color: transparent!important;
+					border: 0;
+					border-bottom: 1px solid rgba(0,0,0,.1);
+					box-shadow: none;
+					transition: all .2s ease-out;
+				}
+			}
+		}
+
+		.task-sub-header {
+			background: rgba(0,0,0,.05);
+			padding: 10px 14px;
+			display: flex;
+			flex-direction: row;
+			border-bottom: 1px solid rgba(0,0,0,.2);
+		}
+
+		.points {
+			background: rgba(0,0,0,.05);
+
+			.point {
+				background: #fff;
+
+				&:first-child {
+					padding-top: 10px;
+				}
+
+				.point-container {
+					* {
+						margin: auto;
+					}
+					display: flex;
+					flex-direction: row;
+					padding: 8px 14px 0;
+
+					.point-valid {
+						width: 7%;
+						color: rgba(0,0,0,.1);
+
+						input {
+							margin-left: 4px;
+							background: #fff!important;
+							border-radius: 3px;
+						}
+					}
+
+					.point-id {
+						width: 8%;
+						span {
+							font-weight: 700;
+						}
+					}
+
+					.point-content {
+						width: 70%;
+						min-width: 70%;
+
+						input {
+							min-height: 24px;
+							border-bottom: 1px solid rgba(0,0,0,.1);
+							transition: all .2s ease-out;
+							padding-bottom: 6px;
+							width: 100%;
+							background-color: transparent!important;
+							border: 0;
+							border-bottom: 1px solid rgba(0,0,0,.1);
+							box-shadow: none;
+						}
+					}
+				}
+			}
+		}
+
+		.point-completed-toggle {
+			border-top: 1px solid rgba(0,0,0,.2);
+			margin: 24px 0 16px;
+			text-align: center;
+			p {
+				display: inline-block;
+				padding: 0 20px;
+				position: relative;
+				top: -13px;
+				background: #fff;
+			}
+			.icon {
+				background: rgba(0,0,0,.3) none repeat scroll 0 0;
+				border-radius: 50%;
+				color: #fff;
+				font-size: 14px;
+				margin-right: 4px;
+				padding: 4px 8px;
+			}
+			.point-completed {
+				color: #000;
+				font-weight: 700;
+				text-decoration: none;
+			}
+		}
+
+		.task-categories {
+			border-top: 1px solid rgba(0,0,0,.2);
+		}
+
+		.task-categories, .task-users {
+			display: flex;
+			flex-wrap: wrap;
+			background: rgba(0,0,0,.05);
+			margin-bottom: 0;
+
+			li {
+				border-radius: 30px;
+				transform: scale(.8);
+				font-size: 14px;
+				background: rgba(0,0,0,.1);
+				padding: 8px 16px;
+				color: rgba(0,0,0,.6);
+				font-size: 12px;
+			}
+		}
+	}
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+}

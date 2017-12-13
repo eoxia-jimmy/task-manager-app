@@ -35,18 +35,6 @@ export class AppService {
 	}
 
 	connect(appData: App): void {
-		this.httpService.get(appData.url, 'wp-json/wp/v2/users/me').subscribe(response => {
-			let data: any = response;
-
-			localStorage.setItem( 'currentAppId', appData.id.toString() );
-			localStorage.setItem( 'currentAppUserId', data.id );
-			localStorage.setItem( 'currentAppUsername', appData.username );
-			localStorage.setItem( 'currentAppPassword', btoa( appData.password ) );
-			localStorage.setItem( 'currentAppURL', appData.url );
-
-			this.connected = true;
-		}, err => {
-			console.log(err);
-		});
+		return this.httpService.get(appData.url, 'wp-json/wp/v2/users/me');
 	}
 }
