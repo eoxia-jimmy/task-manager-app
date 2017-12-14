@@ -1,7 +1,9 @@
 <div class="wrap">
-	<app-apps></app-apps>
+	<app-apps *ngIf="!displayTask"></app-apps>
 
-	<div class="content">
-		The main content
-	</div>
+	<h2>{{currentAppName}}</h2>
+	<span *ngIf="!displayTask" (click)="disconnected()">Disconnected</span>
+
+	<app-task *ngIf="displayTask"></app-task>
+
 </div>

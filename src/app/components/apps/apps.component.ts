@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { App } from './../../app';
 
+import { HomeComponent } from '../home/home.component';
+
 import { AppService } from '../../services/app/app.service';
 import { AuthDataService } from './../../services/auth-data/auth-data.service';
 
@@ -17,8 +19,13 @@ export class AppsComponent {
 
 	model = new App(1, 'Test', 'http://127.0.0.1/', 'username', 'password' );
 
-	constructor(private appService: AppService, public authDataService: AuthDataService) {
+	constructor(
+		private appService: AppService,
+		public authDataService: AuthDataService,
+		public homeComponent: HomeComponent) {
+
 		this.authDataService.checkConnected();
+		this.appService.checkInApp();
 
 		if ( this.authDataService.connected ) {
 			this.getApps();
@@ -65,16 +72,28 @@ export class AppsComponent {
 			let data: any = response;
 
 			localStorage.setItem( 'currentAppId', appData.id.toString() );
+			localStorage.setItem( 'currentAppName', appData.name );
 			localStorage.setItem( 'currentAppUserId', data.id );
 			localStorage.setItem( 'currentAppUsername', appData.username );
 			localStorage.setItem( 'currentAppPassword', btoa( appData.password ) );
 			localStorage.setItem( 'currentAppURL', appData.url );
 
-			this.AppService.connected = true;
+			this.appService.connected = true;
+
+			this.homeComponent.checkConnectedToApp();
 
 			this.getApps();
 		}, err => {
-			console.log(err);
+			localStorage.removeItem( 'currentAppId' );
+			localStorage.removeItem( 'currentAppName' );
+			localStorage.removeItem( 'currentAppUserId' );
+			localStorage.removeItem( 'currentAppUsername' );
+			localStorage.removeItem( 'currentAppPassword' );
+			localStorage.removeItem( 'currentAppURL' );
+
+			this.appService.connected = false;
+
+			this.homeComponent.checkConnectedToApp();
 		});
 	}
 

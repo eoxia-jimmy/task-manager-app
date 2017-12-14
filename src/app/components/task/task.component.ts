@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { HomeComponent } from '../home/home.component';
 
 import { AuthDataService } from './../../services/auth-data/auth-data.service';
 import { AppService } from './../../services/app/app.service';
@@ -20,7 +23,10 @@ export class TaskComponent {
 		private authDataService: AuthDataService,
 		private appService: AppService,
 		private taskService: TaskService,
-		private pointService: PointService) {
+		private pointService: PointService,
+		private router: Router,
+		private homeComponent: HomeComponent) {
+
 		this.authDataService.checkConnected();
 		this.appService.checkInApp();
 
@@ -30,7 +36,20 @@ export class TaskComponent {
 	}
 
 	add():void {
-		console.log('add');
+
+	}
+
+	back(): void {
+		localStorage.removeItem( 'currentAppId' );
+		localStorage.removeItem( 'currentAppName' );
+		localStorage.removeItem( 'currentAppUserId' );
+		localStorage.removeItem( 'currentAppUsername' );
+		localStorage.removeItem( 'currentAppPassword' );
+		localStorage.removeItem( 'currentAppURL' );
+
+		this.appService.connected = false;
+
+		this.homeComponent.checkConnectedToApp();
 	}
 
 	refreshTask(data: any): void {

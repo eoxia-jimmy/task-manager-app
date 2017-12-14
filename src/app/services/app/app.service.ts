@@ -34,7 +34,7 @@ export class AppService {
 		return this.httpService.get('http://164.132.69.238/wp-task-manager-app/wordpress/', 'wp-json/tmapp/v2/user/1');
 	}
 
-	connect(appData: App): void {
+	connect(appData: App): Observable<any> {
 		return this.httpService.get(appData.url, 'wp-json/wp/v2/users/me');
 	}
 }

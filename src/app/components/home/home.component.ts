@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { AppService } from '../../services/app/app.service';
@@ -10,8 +9,14 @@ import { AuthDataService } from './../../services/auth-data/auth-data.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-	constructor(private router: Router, public authDataService: AuthDataService, private appService: AppService) {
+export class HomeComponent {
+	displayTask: boolean = false;
+	currentAppName: string = 'Select a WordPress';
+
+	constructor(
+		private appService: AppService,
+		private authDataService: AuthDataService,
+		private router: Router) {
 		this.authDataService.checkConnected();
 
 		if ( ! this.authDataService.connected ) {
@@ -19,12 +24,32 @@ export class HomeComponent implements OnInit {
 		}
 
 		this.appService.checkInApp();
+		this.checkConnectedToApp();
 
-		if ( this.appService.connected ) {
-			this.router.navigate(['/app/' + localStorage.getItem( 'currentAppId' )]);
-		}
+		this.authDataService.checkConnected();
+		this.appService.checkInApp();
+
+		this.checkConnectedToApp();
 	}
 
-	ngOnInit() {}
+	disconnected(): void {
+		localStorage.removeItem( 'id' );
+		localStorage.removeItem( 'username' );
+		localStorage.removeItem( 'password' );
+
+		this.authDataService.connected = false;
+
+		this.router.navigate(['/login']);
+	}
+
+	checkConnectedToApp(): void {
+		this.displayTask = this.appService.connected;
+
+		if ( this.displayTask ) {
+			this.currentAppName = 'Connected to ' + localStorage.getItem('currentAppName');
+		} else {
+			this.currentAppName = 'Select a WordPress';
+		}
+	}
 
 }

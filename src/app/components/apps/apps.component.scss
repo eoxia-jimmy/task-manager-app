@@ -2,22 +2,15 @@ $main-color: #389af6;
 $main-color-light: #55b6ed;
 $second-color: rgba(0,0,0,0.6);
 
-ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	li {
-		background-color: $main-color;
-		padding: 5px;
+.content {
+	padding: 50px;
 
-		&:hover {
-			background-color: $main-color-light;
-			cursor: pointer;
+	ul {
+		display: flex;
+
+		li {
+			padding: 10px;
+			width: 33%;
 		}
-	}
-	.add {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
 	}
 }
