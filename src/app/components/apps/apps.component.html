@@ -3,11 +3,85 @@
 		<span>My WordPress</span>
 	</h2>
 
-	<ul>
-		<li *ngFor="let app of apps" (click)="connect(app)"><span>{{app.name}}</span></li>
-		<li *ngIf="!apps"><span>No apps</span></li>
-		<li class="add" data-toggle="modal" data-target="#addAppModal">Add</li>
-	</ul>
+	<div class="wpeo-grid grid-4">
+		<div class="box primary" *ngFor="let app of apps">
+			<h3 (click)="connect(app)">{{app.name}} <i class="fa fa-eye" aria-hidden="true"></i></h3>
+			<div class="fa fa-pencil" data-toggle="modal" [attr.data-target]="'#app-' + app.id"></div>
+			<i (click)="delete(app)" class="fa fa-times" aria-hidden="true"></i>
+
+			<div id="app-{{app.id}}" class="modal edit" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Edit App {{app.title}}</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form #appForm="ngForm">
+								<div class="form-group">
+									<label for="id">ID</label>
+									<input type="text" class="form-control" id="id"
+										[(ngModel)]="app.id"
+										name="id"
+										readonly />
+								</div>
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input type="text" class="form-control" id="name"
+										placeholder="Enter name"
+										required
+										[(ngModel)]="app.name"
+										name="name" />
+								</div>
+								<div class="form-group">
+									<label for="url">URL</label>
+									<input type="text" class="form-control" id="url"
+										aria-describedby="urlHelp"
+										placeholder="Enter URL"
+										required
+										[(ngModel)]="app.url"
+										name="url" />
+									<small id="urlHelp" class="form-text text-muted">Enter your WordPress URL with http(s) protocol.</small>
+								</div>
+								<div class="form-group">
+									<label for="key">Username</label>
+									<input type="text" class="form-control" id="key"
+										aria-describedby="usernameHelp"
+										placeholder="Enter your login"
+										required
+										[(ngModel)]="app.username"
+										name="username" />
+									<small id="usernameHelp" class="form-text text-muted">Enter your WordPress Login.</small>
+								</div>
+								<div class="form-group">
+									<label for="secret">Password</label>
+									<input type="text" class="form-control" id="secret"
+										aria-describedby="passwordHelp"
+										placeholder="Enter your password"
+										required
+										[(ngModel)]="app.password"
+										name="password" />
+									<small id="passwordHelp" class="form-text text-muted">Enter your WordPress password.</small>
+								</div>
+								<button type="button" class="btn btn-primary" (click)="edit(app);">Edit</button>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div *ngIf="!apps"><span>No apps</span></div>
+	<div class="box primary add" data-toggle="modal" data-target="#addAppModal">
+		<i class="fa fa-plus-circle" aria-hidden="true"></i>
+	</div>
 
 	<div id="addAppModal" class="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">

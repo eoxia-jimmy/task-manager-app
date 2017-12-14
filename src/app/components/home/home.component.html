@@ -1,8 +1,15 @@
-<div class="wrap">
+<div class="wrap wpeo-wrap">
+	<h1>
+		Task Manager App 0.1.0
+		<span *ngIf="!displayTask" (click)="disconnected()">
+			<i class="fa fa-times-circle-o" aria-hidden="true"></i>
+		</span>
+	</h1>
+
+
 	<app-apps *ngIf="!displayTask"></app-apps>
 
 	<h2>{{currentAppName}}</h2>
-	<span *ngIf="!displayTask" (click)="disconnected()">Disconnected</span>
 
 	<app-task *ngIf="displayTask"></app-task>
 

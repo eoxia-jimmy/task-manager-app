@@ -38,6 +38,34 @@ export class AppsComponent {
 		} );
 	}
 
+	edit(appData: App): void {
+		this.appService.add(appData).subscribe( ( data ) => {
+			this.refreshList(data);
+		} );
+	}
+
+	delete(appData: App): void {
+		this.appService.remove(appData).subscribe(response => {
+			let index: number = -1;
+
+			if ( parseInt( localStorage.getItem( 'currentAppId' ) ) === appData.id ) {
+				localStorage.removeItem( 'currentAppId' );
+				localStorage.removeItem( 'currentAppName' );
+				localStorage.removeItem( 'currentAppUserId' );
+				localStorage.removeItem( 'currentAppUsername' );
+				localStorage.removeItem( 'currentAppPassword' );
+				localStorage.removeItem( 'currentAppURL' );
+			}
+
+			index = this.apps.indexOf(appData);
+
+			if ( index > -1 ) {
+				this.apps.splice(index, 1);
+			}
+		});
+
+	}
+
 	refreshList(appsData): void {
 		this.apps = [];
 

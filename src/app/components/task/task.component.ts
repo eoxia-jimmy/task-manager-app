@@ -36,7 +36,21 @@ export class TaskComponent {
 	}
 
 	add():void {
+		this.taskService.add().subscribe( (data ) => {
+			this.tasks.unshift( new Task(
+				data.id,
+				data.title,
+				data.task_info,
+				[]
+			) );
+		} );
+	}
 
+	edit(data: Task):void {
+		console.log(data);
+		this.taskService.put( data ).subscribe( (data ) => {
+
+		} );
 	}
 
 	back(): void {

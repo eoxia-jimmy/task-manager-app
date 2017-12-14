@@ -43,9 +43,43 @@ $color__grey: #ececec;
 $color__blue: #0d8aff;
 $color__green: #47e58e;
 
+.fa-times-circle-o {
+	&:hover {
+		cursor: pointer;
+	}
+}
+
 .tasks {
 	.task {
 		width: 50%;
 		padding: 10px;
+	}
+}
+
+.box {
+	&.primary {
+		background: #957bbe;
+		padding: 10px;
+		margin: auto;
+		width: 20%;
+
+		i {
+			padding: 5px;
+			color: white;
+			font-size: 1.5em;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+
+		&.add {
+			background: $main-color;
+			margin: auto;
+			width: 5%;
+			text-align: center;
+			&:hover {
+				cursor: pointer;
+			}
+		}
 	}
 }
