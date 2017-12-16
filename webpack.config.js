@@ -68,8 +68,7 @@ const styles = [
 ];
 
 //we add all our external scripts we want to load externally, like inserting in our index.html --> like as if it's .angular-cli.json
-const scripts = [
-];
+const scripts = [];
 
 //create file path for each , so we use for our excludes and includes where needed
 let style_paths = styles.map(style_src => path.join(process.cwd(), style_src));

@@ -1,0 +1,43 @@
+.point-container {
+	* {
+		margin: auto;
+	}
+	display: flex;
+	flex-direction: row;
+	padding: 8px 14px 0;
+
+	.point-valid {
+		width: 7%;
+		color: rgba(0,0,0,.1);
+
+		input {
+			margin-left: 4px;
+			background: #fff!important;
+			border-radius: 3px;
+		}
+	}
+
+	.point-id {
+		width: 8%;
+		span {
+			font-weight: 700;
+		}
+	}
+
+	.point-content {
+		width: 70%;
+		min-width: 70%;
+
+		input {
+			min-height: 24px;
+			border-bottom: 1px solid rgba(0,0,0,.1);
+			transition: all .2s ease-out;
+			padding-bottom: 6px;
+			width: 100%;
+			background-color: transparent!important;
+			border: 0;
+			border-bottom: 1px solid rgba(0,0,0,.1);
+			box-shadow: none;
+		}
+	}
+}

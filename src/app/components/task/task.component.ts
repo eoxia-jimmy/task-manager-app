@@ -8,8 +8,8 @@ import { AppService } from './../../services/app/app.service';
 import { TaskService } from './../../services/task/task.service';
 import { PointService } from './../../services/point/point.service';
 
-import { Task } from './../../task';
-import { Point } from './../../point';
+import { Task } from './../../models/task';
+import { Point } from './../../models/point';
 
 @Component({
 	selector: 'app-task',
@@ -37,17 +37,17 @@ export class TaskComponent {
 
 	add():void {
 		this.taskService.add().subscribe( (data ) => {
-			this.tasks.unshift( new Task(
-				data.id,
-				data.title,
-				data.task_info,
-				[]
-			) );
+			this.tasks.unshift( new Task( data ) );
+		} );
+	}
+
+	addPoint(task: Task, content: string): void {
+		this.pointService.add(task, content).subscribe( (data ) => {
+			this.refreshPoint(task, data);
 		} );
 	}
 
 	edit(data: Task):void {
-		console.log(data);
 		this.taskService.put( data ).subscribe( (data ) => {
 
 		} );
@@ -69,40 +69,33 @@ export class TaskComponent {
 	refreshTask(data: any): void {
 		this.tasks = [];
 		for ( var key in data ) {
-			let tmpTask: Task = new Task(
-				data[key].id,
-				data[key].title,
-				data[key].task_info,
-				[]
-			);
+			let tmpTask: Task = new Task(data[key]);
 
 			this.tasks.push( tmpTask );
 
-			if ( tmpTask.taskInfo.order_point_id.length ) {
-				this.pointService.get( tmpTask ).subscribe( (data ) => {
-					this.refreshPoint(tmpTask, data);
+			if ( tmpTask.task_info.order_point_id.length ) {
+				this.pointService.get( tmpTask ).subscribe( ( data ) => {
+					data.points.subscribe( ( points ) => {
+						this.refreshPoint(data.task, points);
+					});
 				} )
 			}
 		}
 	}
 
 	refreshPoint(task: Task, data: any) {
-		if ( Array.isArray( data ) ) {
-			for ( var key in data ) {
-				let tmpPoint: Point = new Point(
-					data[key].id,
-					data[key].content
-				);
+		if ( data ) {
+			if ( Array.isArray( data ) ) {
+				for ( var key in data ) {
+					let tmpPoint: Point = new Point(data[key]);
+
+					task.points.push(tmpPoint);
+				}
+			} else {
+				let tmpPoint: Point = new Point(data);
 
 				task.points.push(tmpPoint);
 			}
-		} else {
-			let tmpPoint: Point = new Point(
-				data.id,
-				data.content
-			);
-
-			task.points.push(tmpPoint);
 		}
 	}
 

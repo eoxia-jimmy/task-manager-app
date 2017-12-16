@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { App } from '../../app';
-// import { APPS } from '../../mock-apps';
+import { App } from '../../models/app';
 
 import { HttpService } from './../http/http.service';
 

@@ -5,7 +5,7 @@ import { of } from 'rxjs/observable/of';
 
 import { HttpService } from './../http/http.service';
 
-import { Task } from './../../task';
+import { Task } from './../../models/task';
 
 @Injectable()
 export class TaskService {

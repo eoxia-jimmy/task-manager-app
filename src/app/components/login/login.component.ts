@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Login } from './../../login';
+import { Login } from './../../models/login';
 
 import { HttpService } from './../../services/http/http.service';
 import { AuthDataService } from './../../services/auth-data/auth-data.service';

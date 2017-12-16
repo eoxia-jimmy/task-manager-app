@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { App } from './../../app';
+import { App } from './../../models/app';
 
 import { HomeComponent } from '../home/home.component';
 
@@ -86,7 +86,7 @@ export class AppsComponent {
 		this.apps.push( tmpApp );
 
 		this.currentId = this.apps.length;
-		this.model.id = this.currentId + 1;
+		this.model.id = appData.id + 1;
 	}
 
 	getApps(): void {
