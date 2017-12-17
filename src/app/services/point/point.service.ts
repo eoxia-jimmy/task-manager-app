@@ -25,6 +25,6 @@ export class PointService {
 	}
 
 	get(points_id: Number[]): Observable<any> {
-		return this.httpService.get(localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/point/' + points_id );
+		return this.httpService.get(localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/points/' + points_id );
 	}
 }

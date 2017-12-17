@@ -5,7 +5,7 @@
 
 <div appMasonry class="tasks">
 	<div class="task" *ngFor="let task of tasks">
-		<div class="task-content">
+		<div class="task-content {{task.front_info.display_color}}">
 
 			<ul class="task-header">
 				<li class="task-owner">
@@ -24,7 +24,7 @@
 					<span class="dropdown-toggle fa fa-ellipsis-v" aria-hidden="true"></span>
 
 					<ul class="dropdown-content">
-						<app-task-option></app-task-option>
+						<app-task-option [task]="task"></app-task-option>
 					</ul>
 				</li>
 			</ul>

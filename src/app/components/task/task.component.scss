@@ -10,10 +10,33 @@ app-task * {
 		box-shadow: 1px 1px 5px 0 rgba(0,0,0,.2);
 		position: relative;
 
+		&.red {
+			background: #ffc9ca;
+		}
+		&.yellow {
+			background: #fff1bd;
+		}
+		&.green {
+			background: #dfffd8;
+		}
+		&.blue {
+			background: #d5eaff;
+		}
+		&.purple {
+			background: #e6d2ff;
+		}
+		
 		.task-header {
 			padding: 10px 14px;
 			display: flex;
 			flex-direction: row;
+
+			.task-setting {
+				.dropdown-content {
+					width: 320px!important;
+				}
+			}
+
 			li {
 				margin: auto;
 			}

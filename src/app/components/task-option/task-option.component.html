@@ -1,3 +1,64 @@
-<p>
-  task-option works!
-</p>
+<div class="wpeo-grid grid-2">
+	<ul class="task-color">
+		<li class="color-element">
+			<span class="action-attribute white" (click)="changeColor('white')"></span>
+		</li>
+		<li class="color-element">
+			<span class="action-attribute red" (click)="changeColor('red')"></span>
+		</li>
+		<li class="color-element">
+			<span class="action-attribute yellow" (click)="changeColor('yellow')"></span>
+		</li>
+		<li class="color-element">
+			<span class="action-attribute green" (click)="changeColor('green')"></span>
+		</li>
+		<li class="color-element">
+			<span class="action-attribute blue" (click)="changeColor('blue')"></span>
+		</li>
+		<li class="color-element">
+			<span class="action-attribute purple" (click)="changeColor('purple')"></span>
+		</li>
+	</ul>
+
+	<div class="task-informations">
+		<div class="user tooltip hover" aria-label="admin" style="width: 50px; height: 50px;">
+			<img class="avatar avatar-50" src="http://2.gravatar.com/avatar/e687cb4a2450eb958a3e56294372e77e?s=50&amp;d=blank&amp;r=g">
+			<div class="wpeo-avatar-initial"><span>a</span></div>
+		</div>
+				<span class="time"><i class="dashicons dashicons-calendar-alt"></i>
+			Créé 			le 17 décembre 2017 à 18h48		</span>
+	</div>
+</div>
+
+<ul class="actions">
+	<li class="action-attribute tooltip hover" aria-label="Archive" data-action="to_archive" data-nonce="a5ae945dec" data-id="34" data-loader="task-header-action">
+		<span><i class="fa fa-archive"></i></span>
+	</li>
+
+	<li class="action-delete tooltip hover" aria-label="Supprimer" data-action="delete_task" data-message-delete="Voulez vous supprimer cette tâche ?" data-nonce="0258ea547f" data-id="34" data-loader="task-header-action">
+		<span><i class="fa fa-trash"></i></span>
+	</li>
+
+	<li class="open-popup-ajax tooltip hover" aria-label="Notifier l'équipe" data-parent="wpeo-project-task" data-target="popup" data-class="popup-notification" data-action="load_notify_popup" data-nonce="4a7b3de818" data-title="#34 Notification" data-id="34">
+		<span><i class="fa fa-bell"></i></span>
+	</li>
+
+	<li class="action-attribute tooltip hover" aria-label="Exporter" data-action="export_task" data-nonce="bf2e5e61a5" data-id="34" data-loader="task-header-action">
+		<span><i class="fa fa-download"></i></span>
+	</li>
+</ul>
+
+<div class="move-to">
+	<div>
+		<input type="hidden" name="task_id" value="34">
+
+		<label for="move_task">Déplacer la tâche vers</label>
+		<div class="form-fields">
+			<input type="text" class="search-parent ui-autocomplete-input" autocomplete="off">
+			<input type="hidden" name="to_element_id">
+			<input type="button" class="action-input" data-action="move_task_to" data-nonce="1fded6a9f1" data-loader="move-to" data-parent="move-to" value="OK">
+		</div>
+		<div class="list-posts">
+		</div>
+	</div>
+</div>
