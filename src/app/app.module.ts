@@ -15,8 +15,11 @@ import { HttpService } from './services/http/http.service';
 import { AuthDataService } from './services/auth-data/auth-data.service';
 import { TaskService } from './services/task/task.service';
 import { PointService } from './services/point/point.service';
+import { CategoryService } from './services/category/category.service';
+
 import { MasonryDirective } from './directives/masonry/masonry.directive';
 import { WpeoDropdownDirective } from './directives/wpeo-dropdown/wpeo-dropdown.directive';
+import { FlextextDirective } from './directives/flextext/flextext.directive';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -40,7 +43,8 @@ import { TaskOptionComponent } from './components/task-option/task-option.compon
     CategoryComponent,
     UserComponent,
     TaskOptionComponent,
-    WpeoDropdownDirective
+    WpeoDropdownDirective,
+    FlextextDirective
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,8 @@ import { TaskOptionComponent } from './components/task-option/task-option.compon
 		HttpService,
 		AuthDataService,
 		TaskService,
-		PointService
+		PointService,
+		CategoryService
 	],
   bootstrap: [AppComponent]
 })

@@ -5,13 +5,10 @@ declare var Masonry:any;
   selector: '[appMasonry]'
 })
 export class MasonryDirective implements AfterViewChecked {
-	constructor(public el: ElementRef) {
-	}
+	constructor(public el: ElementRef) {}
 
 	ngAfterViewChecked() {
-		new Masonry( '.tasks', {
-		  // options
-		});
+		new Masonry( '.tasks' );
 	}
 
 }

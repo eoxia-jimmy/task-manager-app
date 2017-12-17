@@ -40,9 +40,7 @@
 			</ul>
 
 			<div class="points">
-				<div class="point" *ngFor="let point of task.points">
-					<app-point *ngIf="! point.point_info.completed" [point]="point"></app-point>
-				</div>
+				<app-point [completed]="false" [points_id]="task.task_info.order_point_id"></app-point>
 
 				<div class="point add">
 					<ul class="point-container">
@@ -51,7 +49,7 @@
 						</li>
 
 						<li>
-							<div class="wpeo-button button-radius-1" (click)="addPoint(task, content)"><span class="fa fa-plus" aria-hidden="true"></span></div>
+							<div class="wpeo-button button-radius-1" (click)="addPoint(task.id, content)"><span class="fa fa-plus" aria-hidden="true"></span></div>
 						</li>
 					</ul>
 				</div>
@@ -62,10 +60,14 @@
 					<span class="icon">+</span>
 					<span class="point-completed">Points completés&nbsp;(<span class="point"><span class="point-completed">0</span>/<span class="total-point">1</span></span>)</span>
 				</p>
+
+				<div class="points">
+					<app-point [completed]="true" [points_id]="task.task_info.order_point_id"></app-point>
+				</div>
 			</div>
 
 			<ul class="task-categories">
-				<app-category></app-category>
+				<app-category [categories_id]="task.taxonomy.wpeo_tag"></app-category>
 
 				<li>
 					<span class="icon">+</span>

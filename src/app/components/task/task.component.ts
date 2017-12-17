@@ -41,14 +41,8 @@ export class TaskComponent {
 		} );
 	}
 
-	addPoint(task: Task, content: string): void {
-		this.pointService.add(task, content).subscribe( (data ) => {
-			this.refreshPoint(task, data);
-		} );
-	}
-
 	edit(data: Task):void {
-		this.taskService.put( data ).subscribe( (data ) => {
+		this.taskService.put( data ).subscribe( (data) => {
 
 		} );
 	}
@@ -72,30 +66,6 @@ export class TaskComponent {
 			let tmpTask: Task = new Task(data[key]);
 
 			this.tasks.push( tmpTask );
-
-			if ( tmpTask.task_info.order_point_id.length ) {
-				this.pointService.get( tmpTask ).subscribe( ( data ) => {
-					data.points.subscribe( ( points ) => {
-						this.refreshPoint(data.task, points);
-					});
-				} )
-			}
-		}
-	}
-
-	refreshPoint(task: Task, data: any) {
-		if ( data ) {
-			if ( Array.isArray( data ) ) {
-				for ( var key in data ) {
-					let tmpPoint: Point = new Point(data[key]);
-
-					task.points.push(tmpPoint);
-				}
-			} else {
-				let tmpPoint: Point = new Point(data);
-
-				task.points.push(tmpPoint);
-			}
 		}
 	}
 

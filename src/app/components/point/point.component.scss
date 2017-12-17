@@ -28,8 +28,10 @@
 		width: 70%;
 		min-width: 70%;
 
-		input {
+		textarea {
 			min-height: 24px;
+			resize: none;
+			overflow: hidden;
 			border-bottom: 1px solid rgba(0,0,0,.1);
 			transition: all .2s ease-out;
 			padding-bottom: 6px;

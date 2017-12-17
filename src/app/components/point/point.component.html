@@ -1,19 +1,23 @@
-<ul class="point-container">
-	<li class="point-valid">
-		<span class="point-sortable-event">o</span>
-		<input type="checkbox" />
-	</li>
-	<li class="point-id">
-		<span>#{{point.id}}</span>
-	</li>
-	<li class="point-content">
-		<input type="text" name="content" value="{{point.content}}">
-	</li>
+<div class="point" *ngFor="let point of points">
+	<ul class="point-container">
+		<li class="point-valid">
+			<span class="point-sortable-event">o</span>
+			<input type="checkbox" />
+		</li>
+		<li class="point-id">
+			<span>#{{point.id}}</span>
+		</li>
+		<li class="point-content">
+			<textarea appFlextext
+				[(ngModel)]="point.content"
+				(blur)="edit(point)">{{point.content}}</textarea>
+		</li>
 
-	<li class="point-time">
-		(C)
-		<span class="wpeo-time-in-point">0</span>
-	</li>
+		<li class="point-time">
+			(C)
+			<span class="wpeo-time-in-point">0</span>
+		</li>
 
-	<li class="point-setting">|</li>
-</ul>
+		<li class="point-setting">|</li>
+	</ul>
+	</div>

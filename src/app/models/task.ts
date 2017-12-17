@@ -24,8 +24,6 @@ export class Task implements WPPost {
 		for (var f in fields) {
 			this[f] = fields[f];
 		}
-
-		console.log(this);
 	}
 
 }
