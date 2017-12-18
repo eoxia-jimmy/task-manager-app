@@ -1,4 +1,4 @@
-<div class="point" *ngFor="let point of points">
+<div class="point" [hidden]="completed" *ngFor="let point of task.pointsUncompleted">
 	<ul class="point-container">
 		<li class="point-sortable">
 			<span>o</span>
@@ -22,4 +22,30 @@
 
 		<li class="point-setting">|</li>
 	</ul>
-	</div>
+</div>
+
+<div class="point" [hidden]="! completed" *ngFor="let point of task.pointsCompleted">
+	<ul class="point-container">
+		<li class="point-sortable">
+			<span>o</span>
+		</li>
+		<li class="point-valid">
+			<input type="checkbox" [(ngModel)]="point.point_info.completed" (change)="edit(point)" />
+		</li>
+		<li class="point-id">
+			<span>#{{point.id}}</span>
+		</li>
+		<li class="point-content">
+			<textarea appFlextext
+				[(ngModel)]="point.content"
+				(blur)="edit(point)">{{point.content}}</textarea>
+		</li>
+
+		<li class="point-time">
+			(C)
+			<span class="wpeo-time-in-point">0</span>
+		</li>
+
+		<li class="point-setting">|</li>
+	</ul>
+</div>

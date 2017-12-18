@@ -22,6 +22,8 @@ export class PointComponent implements OnInit {
 
 	points: Point[] = [];
 
+	test: string = 'points';
+
 	constructor(private pointService: PointService) { }
 
 	ngOnInit(): void {
@@ -43,6 +45,12 @@ export class PointComponent implements OnInit {
 					this.points.push(new Point(data));
 				}
 			}
+
+			if ( this.completed ) {
+				this.task.pointsCompleted = this.points;
+			} else {
+				this.task.pointsUncompleted = this.points;
+			}
 		}
 	}
 
@@ -52,9 +60,25 @@ export class PointComponent implements OnInit {
 	}
 
 	edit(point:Point):void {
-		console.log(point);
 		if ( point.point_info.completed ) {
+			for ( var key in this.task.pointsUncompleted ) {
+				if ( this.task.pointsUncompleted[key] === point ) {
+					this.task.pointsUncompleted.splice( key, 1 );
+					break;
+				}
+			}
 
+			this.task.pointsCompleted.push(point);
+
+		} else {
+			for ( var key in this.task.pointsCompleted ) {
+				if ( this.task.pointsCompleted[key] === point ) {
+					this.task.pointsCompleted.splice( key, 1 );
+					break;
+				}
+			}
+
+			this.task.pointsUncompleted.push(point);
 		}
 
 		this.pointService.put(point).subscribe( (data ) => {});

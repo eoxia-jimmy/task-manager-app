@@ -19,7 +19,8 @@ export class Task implements WPPost {
 	public thumbnail_id: number;
 	public task_info: any;
 	public front_info: any;
-	public points: Point[] = [];
+	public pointsCompleted: Point[] = [];
+	public pointsUncompleted: Point[] = [];
 
 	constructor(fields: any) {
 		for (var f in fields) {
