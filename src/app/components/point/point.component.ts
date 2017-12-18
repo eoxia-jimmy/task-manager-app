@@ -60,10 +60,11 @@ export class PointComponent implements OnInit {
 	}
 
 	edit(point:Point):void {
+		let key: string;
 		if ( point.point_info.completed ) {
-			for ( var key in this.task.pointsUncompleted ) {
+			for ( key in this.task.pointsUncompleted ) {
 				if ( this.task.pointsUncompleted[key] === point ) {
-					this.task.pointsUncompleted.splice( key, 1 );
+					this.task.pointsUncompleted.splice( parseInt( key ), 1 );
 					break;
 				}
 			}
@@ -71,9 +72,9 @@ export class PointComponent implements OnInit {
 			this.task.pointsCompleted.push(point);
 
 		} else {
-			for ( var key in this.task.pointsCompleted ) {
+			for ( key in this.task.pointsCompleted ) {
 				if ( this.task.pointsCompleted[key] === point ) {
-					this.task.pointsCompleted.splice( key, 1 );
+					this.task.pointsCompleted.splice( parseInt( key ), 1 );
 					break;
 				}
 			}

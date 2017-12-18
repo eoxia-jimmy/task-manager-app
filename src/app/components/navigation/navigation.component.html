@@ -1,0 +1,66 @@
+<div class="form" action="http://164.132.69.238/wp-task-manager-app/wordpress/wp-admin/admin-ajax.php" method="POST">
+	<header class="wpeo-header-bar">
+		<ul>
+
+			<li class="action-attribute active" data-action="load_all_task" data-nonce="79ebdebd5e">Toutes les tâches</li>
+			<li class="action-attribute" data-action="load_my_task" data-nonce="1d11bed2bf">Mes tâches</li>
+			<li class="action-attribute" data-action="load_archived_task" data-nonce="3f45b0a8e4">Tâches archivés</li>
+
+
+			<li class="wpeo-general-search">
+				<input type="hidden" name="action" value="search">
+				<label for="general-search">
+					<i class="dashicons dashicons-search"></i>
+					<input type="text" name="term" value="" placeholder="Rechercher...">
+				</label>
+				<span class="more-search-options">Plus d'options</span>
+			</li>
+
+		</ul>
+	</header>
+
+	<div class="wpeo-header-search hidden active">
+		<ul class="wpeo-follower-search">
+			<li><span class="wpeo-follower-title">Utilisateurs</span></li>
+			<li>
+				<select name="follower_id_selected">
+					<option value=""></option><option value="1">admin</option><option value="3">admin2</option>		</select>
+			</li>
+		</ul>
+
+		<ul>
+			<li class="tag-search">
+
+				<input type="hidden" name="categories_id_selected">
+				<ul class="tags">
+					<li class="wpeo-tag-title">Catégories</li>
+					<li class="wpeo-tag-search" data-tag-id="10">test</li>
+				</ul>
+			</li>
+		</ul>
+
+		<a class="action-input search-button">Rechercher</a>
+	</div>
+</div>
+
+<div class="wpeo-header-search hidden active" style="display: block;">
+	<ul class="wpeo-follower-search">
+		<li><span class="wpeo-follower-title">Utilisateurs</span></li>
+		<li>
+			<select name="follower_id_selected">
+				<option value=""></option><option value="1">admin</option><option value="3">admin2</option>		</select>
+		</li>
+	</ul>
+
+	<ul>
+		<li class="tag-search">
+			<input type="hidden" name="categories_id_selected">
+			<ul class="tags">
+				<li class="wpeo-tag-title">Catégories</li>
+				<li class="wpeo-tag-search" data-tag-id="10">test</li>
+			</ul>
+		</li>
+	</ul>
+
+	<a class="action-input search-button">Rechercher</a>
+</div>
