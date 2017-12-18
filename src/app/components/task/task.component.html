@@ -40,7 +40,7 @@
 			</ul>
 
 			<div class="points">
-				<app-point [completed]="false" [points_id]="task.task_info.order_point_id"></app-point>
+				<app-point [task]="task" [completed]="false" [points_id]="task.task_info.order_point_id"></app-point>
 
 				<div class="point add">
 					<ul class="point-container">
@@ -62,7 +62,7 @@
 				</p>
 
 				<div class="points">
-					<app-point [completed]="true" [points_id]="task.task_info.order_point_id"></app-point>
+					<app-point [task]="task" [completed]="true" [points_id]="task.task_info.order_point_id"></app-point>
 				</div>
 			</div>
 

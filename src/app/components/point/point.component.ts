@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { Task } from './../../models/task';
 import { Point } from './../../models/point';
 
 import { PointService } from '../../services/point/point.service';
@@ -10,8 +11,8 @@ import { PointService } from '../../services/point/point.service';
   styleUrls: ['./point.component.scss']
 })
 export class PointComponent implements OnInit {
-	@Input('task_id')
-	task_id: Number;
+	@Input('task')
+	task: Task;
 
 	@Input('points_id')
 	points_id: Number[];
@@ -45,12 +46,17 @@ export class PointComponent implements OnInit {
 		}
 	}
 
-	add(task_id: Number, content: string): void {
-		this.pointService.add(task_id, content).subscribe( (data ) => {
+	add(content: string): void {
+		this.pointService.add(this.task.id, content).subscribe( (data ) => {
 		} );
 	}
 
 	edit(point:Point):void {
+		console.log(point);
+		if ( point.point_info.completed ) {
+
+		}
+
 		this.pointService.put(point).subscribe( (data ) => {});
 	}
 }

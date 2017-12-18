@@ -1,8 +1,10 @@
 <div class="point" *ngFor="let point of points">
 	<ul class="point-container">
+		<li class="point-sortable">
+			<span>o</span>
+		</li>
 		<li class="point-valid">
-			<span class="point-sortable-event">o</span>
-			<input type="checkbox" />
+			<input type="checkbox" [(ngModel)]="point.point_info.completed" (change)="edit(point)" />
 		</li>
 		<li class="point-id">
 			<span>#{{point.id}}</span>
