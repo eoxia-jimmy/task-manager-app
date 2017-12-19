@@ -20,7 +20,13 @@
 			<span class="wpeo-time-in-point">0</span>
 		</li>
 
-		<li class="point-setting">|</li>
+		<li appWpeoDropdown class="wpeo-dropdown point">
+			<span class="dropdown-toggle fa fa-ellipsis-v" aria-hidden="true"></span>
+
+			<ul class="dropdown-content">
+				<app-point-option [point]="point"></app-point-option>
+			</ul>
+		</li>
 	</ul>
 </div>
 

@@ -31,6 +31,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { UserComponent } from './components/user/user.component';
 import { TaskOptionComponent } from './components/task-option/task-option.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { PointOptionComponent } from './components/point-option/point-option.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     TaskOptionComponent,
     WpeoDropdownDirective,
     FlextextDirective,
-    NavigationComponent
+    NavigationComponent,
+    PointOptionComponent
   ],
   imports: [
     BrowserModule,

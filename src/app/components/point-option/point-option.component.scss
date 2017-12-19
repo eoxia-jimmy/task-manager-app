@@ -1,0 +1,16 @@
+.task-informations {
+	border-bottom: 1px solid rgba(0,0,0,.1);
+	text-align: center;
+}
+
+.actions {
+	text-align: center;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+
+	li {
+		display: inline-block;
+		padding: 4px;
+		font-size: 24px;
+		color: rgba(0,0,0,.5);
+	}
+}

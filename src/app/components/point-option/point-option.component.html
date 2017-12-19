@@ -1,0 +1,39 @@
+<div>
+	<div class="task-informations">
+
+		<div class="user tooltip hover" aria-label="Laurent Magnin" style="width: 50px; height: 50px;">
+			<img class="avatar avatar-50" src="https://secure.gravatar.com/avatar/b42cc4ea93935ba337caa1ccf162c2d2?s=50&amp;d=blank&amp;r=g">
+			<div class="wpeo-avatar-initial"><span>l</span></div>
+		</div>
+
+		<p>
+			Créé
+			<span data-namespace="taskManager" data-module="point" data-after-method="afterTriggerChangeDate" class="group-date">
+				<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="due_date" value="2017-12-13 00:03:18">
+				<span class="date-time">le 13 décembre 2017 à 00h03</span>
+			</span>
+		</p>
+	</div>
+</div>
+
+<ul class="actions">
+	<li class="action-delete" (click)="delete()">
+		<span><i class="fa fa-trash"></i></span>
+	</li>
+</ul>
+
+<div class="move-to">
+	<div class="">
+		<input type="hidden" name="task_id" value="26253">
+		<input type="hidden" name="point_id" value="13814">
+
+		<label for="move_task">Déplacer le point vers</label>
+		<div class="form-fields">
+			<input type="text" class="search-task ui-autocomplete-input" autocomplete="off">
+			<input type="hidden" name="to_task_id">
+			<input type="button" class="action-input" data-action="move_point_to" data-nonce="20a790614c" data-loader="move-to" data-parent="move-to" value="OK">
+		</div>
+		<div class="list-tasks-to-move">
+		</div>
+	</div>
+</div>
