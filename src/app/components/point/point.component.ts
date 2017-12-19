@@ -84,4 +84,12 @@ export class PointComponent implements OnInit {
 
 		this.pointService.put(point).subscribe( (data ) => {});
 	}
+
+	delete(point:Point): void {
+		for (var key in this.points) {
+			if ( point == this.points[key] ) {
+				this.points = this.points.splice(parseInt(key), 1);
+			}
+		}
+	}
 }

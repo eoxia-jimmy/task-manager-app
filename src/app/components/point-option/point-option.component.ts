@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Point } from './../../models/point';
 
+import { PointComponent } from '../../components/point/point.component';
+import { PointService } from '../../services/point/point.service';
+
 @Component({
   selector: 'app-point-option',
   templateUrl: './point-option.component.html',
@@ -11,12 +14,14 @@ export class PointOptionComponent implements OnInit {
 	@Input('point')
 	point: Point;
 
-	constructor() { }
+	constructor(public pointComponent: PointComponent, public pointService: PointService) { }
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	delete(): void {
-		console.log('ok');
+		this.point.status = '-34071';
+		this.pointService.put( this.point ).subscribe( (data) => {
+			this.pointComponent.delete(this.point);
+		} );
 	}
 }
