@@ -4,20 +4,20 @@
 	<div>
 		<form #appForm="ngForm">
 			<div class="form-group">
-				<label for="login">Adresse e-mail ou nom d'utilisateur</label>
-				<input type="text" class="form-control" id="login"
+				<label for="clientKey">Client Key</label>
+				<input type="text" class="form-control" id="clientKey"
 					required
-					[(ngModel)]="model.login"
-					name="login" />
+					[(ngModel)]="model.clientKey"
+					name="clientKey" />
 			</div>
 			<div class="form-group">
-				<label for="password">Mot de passe</label>
-				<input type="text" class="form-control" id="password"
+				<label for="clientSecret">Client Secret</label>
+				<input type="text" class="form-control" id="clientSecret"
 					required
-					[(ngModel)]="model.password"
-					name="password" />
+					[(ngModel)]="model.clientSecret"
+					name="clientSecret" />
 			</div>
-			<button type="button" class="btn btn-primary" (click)="login(model);">Se Connecter</button>
+			<button type="button" class="btn btn-primary" (click)="login(model);">Login</button>
 			<div *ngIf="loading">Loading...</div>
 		</form>
 	</div>
