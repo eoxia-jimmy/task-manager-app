@@ -31,8 +31,6 @@ export class HttpService {
 	public post(url: string, endpoint: string, body: any): Observable<any> {
 		let options = this.getOauthBasicHeader();
 
-		console.log(endpoint);
-
 		return this.httpClient.post( url + endpoint, body, options );
 	}
 

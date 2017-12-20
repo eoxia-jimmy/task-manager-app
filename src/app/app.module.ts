@@ -16,6 +16,7 @@ import { AuthDataService } from './services/auth-data/auth-data.service';
 import { TaskService } from './services/task/task.service';
 import { PointService } from './services/point/point.service';
 import { CategoryService } from './services/category/category.service';
+import { Oauth10aService } from './services/oauth1.0a/oauth1.0a.service';
 
 import { MasonryDirective } from './directives/masonry/masonry.directive';
 import { WpeoDropdownDirective } from './directives/wpeo-dropdown/wpeo-dropdown.directive';
@@ -64,7 +65,8 @@ import { PointOptionComponent } from './components/point-option/point-option.com
 		AuthDataService,
 		TaskService,
 		PointService,
-		CategoryService
+		CategoryService,
+		Oauth10aService
 	],
   bootstrap: [AppComponent]
 })
