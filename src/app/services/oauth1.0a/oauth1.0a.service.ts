@@ -22,7 +22,7 @@ export class Oauth10aService {
 
 	requestData: any = {
 		url: '',
-		method: 'POST',
+		method: 'GET',
 		body: {}
 	};
 
@@ -34,26 +34,41 @@ export class Oauth10aService {
 	constructor(public httpClient: HttpClient) { }
 
 	login(): void {
-		this.openAuthorize();
+		if ( 1 === Number(localStorage.getItem( 'oauth_step' )) ) {
+			this.openAuthorize();
+		} else if ( 2 === Number(localStorage.getItem( 'oauth_step' )) ) {
+			this.getToken();
+		} else {
+			this.getTemporarlyToken();
+
+		}
 	}
 
-	getTemporarlyToken(): void {
-		this.requestData.url = this.baseUrl + 'oauth1/request';
-
+	getHeader(): any {
 		let authData = {
 			oauth_consumer_key: this.oAuth.consumer.key,
 			oauth_nonce: getNonce(),
 			oauth_signature_method: this.oAuth.signature_method,
 			oauth_timestamp: getTimeStamp(),
-			oauth_token: ''
+			oauth_version: '1.0'
 		};
+
+		if ( localStorage.getItem( 'oauth_token' ) ) {
+			authData['oauth_token'] = localStorage.getItem( 'oauth_token' );
+		}
+
+		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
+			authData['oauth_secret'] = localStorage.getItem( 'oauth_token_secret' );
+		}
 
 		let authString = '';
 		let joinAuthData = '';
 
 		for ( var key in authData ) {
+			if ( key != 'oauth_secret' ) {
+				authString += key + '="' + authData[key] + '",';
+			}
 			joinAuthData += key + '=' + authData[key] + '&';
-			authString += key + '="' + authData[key] + '",';
 		}
 
 		joinAuthData = encodeURIComponent(joinAuthData.substring(0, joinAuthData.length - 1));
@@ -63,6 +78,13 @@ export class Oauth10aService {
 		baseString    += '&' + joinAuthData;
 
 		let signatureKey = this.oAuth.consumer.secret + '&';
+
+		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
+			signatureKey += localStorage.getItem( 'oauth_token_secret' );
+		}
+
+		console.log(baseString);
+		console.log(signatureKey);
 
 		let signature = crypto.createHmac( 'sha1', signatureKey ).update( baseString ).digest('base64');
 
@@ -75,7 +97,15 @@ export class Oauth10aService {
 			responseType: 'text'
 		};
 
-		this.httpClient.post(this.requestData.url, {}, options).subscribe(response => {
+		return options;
+	}
+
+	getTemporarlyToken(): void {
+		this.requestData.url = this.baseUrl + 'oauth1/request';
+
+		let options: any = this.getHeader();
+
+		this.httpClient.get(this.requestData.url, options).subscribe(response => {
 			let data: any = response;
 			let tmp: any;
 			data = data.split('&');
@@ -86,6 +116,9 @@ export class Oauth10aService {
 
 				localStorage.setItem( tmp[0], tmp[1] );
 			}
+
+			localStorage.setItem( 'oauth_step', '1' );
+			this.openAuthorize();
 		} );
 	}
 
@@ -105,13 +138,29 @@ export class Oauth10aService {
 				win.webContents.executeJavaScript('document.querySelector("code").innerHTML', false)
 				.then((result) => {
 					localStorage.setItem( 'oauth_verifier', result );
+					localStorage.setItem( 'oauth_step', '2' );
 					win.destroy();
-					// this.giveAccess();
+					this.getToken();
 				} );
 			}
 		} );
 
 		win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token') );
+	}
+
+	getToken(): void {
+		this.requestData.url = this.baseUrl + 'oauth1/access';
+		let options: any = this.getHeader();
+		this.httpClient.get(this.requestData.url + '?oauth_verifier=' + localStorage.getItem( 'oauth_verifier' ), options).subscribe(data => {
+			let storageData = {};
+			let response: any = data;
+			let tmpData: any = response.split( '&' );
+			for( let key in tmpData ) {
+				let tmp = tmpData[key].split( '=' );
+				localStorage.setItem( tmp[0], tmp[1] );
+			}
+			localStorage.setItem( 'connected', 'true' );
+		});
 	}
 }
 
