@@ -30,6 +30,8 @@ export class LoginComponent {
 	login(login: Login): void {
 		this.loading = true;
 
-		this.oAuth10a.login();
+		this.oAuth10a.login().subscribe( (data ) => {
+			console.log(data);
+		} );
 	}
 }
