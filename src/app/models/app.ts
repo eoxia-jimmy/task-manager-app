@@ -3,8 +3,8 @@ export class App {
 		public id: number,
 		public name: string,
 		public url: string,
-		public username: string,
-		public password: string
+		public customerKey: string,
+		public customerSecret: string
 	) {}
 
 }

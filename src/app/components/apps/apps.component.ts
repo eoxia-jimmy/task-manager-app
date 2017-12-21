@@ -79,8 +79,8 @@ export class AppsComponent {
 			appData.id,
 			appData.title,
 			appData.url,
-			appData.username,
-			appData.password,
+			appData.consumerKey,
+			appData.consumerSecret,
 		);
 
 		this.apps.push( tmpApp );
@@ -102,8 +102,9 @@ export class AppsComponent {
 			localStorage.setItem( 'currentAppId', appData.id.toString() );
 			localStorage.setItem( 'currentAppName', appData.name );
 			localStorage.setItem( 'currentAppUserId', data.id );
-			localStorage.setItem( 'currentAppUsername', appData.username );
-			localStorage.setItem( 'currentAppPassword', btoa( appData.password ) );
+			localStorage.setItem( 'currentAppCustomerKey', appData.customerKey );
+			localStorage.setItem( 'currentAppCustomerSecret', appData.customerSecret );
+			localStorage.setItem( 'currentAppCustomerSecret', appData.customerSecret );
 			localStorage.setItem( 'currentAppURL', appData.url );
 
 			this.appService.connected = true;
@@ -115,8 +116,8 @@ export class AppsComponent {
 			localStorage.removeItem( 'currentAppId' );
 			localStorage.removeItem( 'currentAppName' );
 			localStorage.removeItem( 'currentAppUserId' );
-			localStorage.removeItem( 'currentAppUsername' );
-			localStorage.removeItem( 'currentAppPassword' );
+			localStorage.removeItem( 'currentAppCustomerKey' );
+			localStorage.removeItem( 'currentAppCustomerSecret' );
 			localStorage.removeItem( 'currentAppURL' );
 
 			this.appService.connected = false;

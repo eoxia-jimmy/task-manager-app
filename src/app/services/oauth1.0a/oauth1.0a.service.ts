@@ -51,6 +51,7 @@ export class Oauth10aService {
 
 	get(url: string): Observable<any> {
 		this.requestData.url = url;
+		this.requestData.method = 'GET';
 
 		if ( localStorage.getItem( 'oauth_token' ) ) {
 			this.token.key = localStorage.getItem( 'oauth_token' );
@@ -70,7 +71,7 @@ export class Oauth10aService {
 		return this.httpClient.get(this.requestData.url, options);
 	}
 
-	post(url: string): Observable<any> {
+	post(url: string, body: any): Observable<any> {
 		this.requestData.url = url;
 
 		if ( localStorage.getItem( 'oauth_token' ) ) {
@@ -82,13 +83,11 @@ export class Oauth10aService {
 		}
 
 		this.requestData.method = 'POST';
+		this.requestData.body = body;
 
 		let options = {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
 		};
-
-		options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-
 
 		return this.httpClient.post(this.requestData.url, {}, options);
 	}

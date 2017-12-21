@@ -44,20 +44,20 @@
 										name="url" />
 								</div>
 								<div class="form-group">
-									<label for="key-{{app.id}}">Username</label>
+									<label for="key-{{app.id}}">Customer key</label>
 									<input type="text" class="form-control" id="key-{{app.id}}"
-										placeholder="Enter your login"
+										placeholder="Enter your key"
 										required
-										[(ngModel)]="app.username"
-										name="username" />
+										[(ngModel)]="app.customerKey"
+										name="customerKey" />
 								</div>
 								<div class="form-group">
-									<label for="secret-{{app.id}}">Password</label>
+									<label for="secret-{{app.id}}">Customer secret</label>
 									<input type="text" class="form-control" id="secret-{{app.id}}"
-										placeholder="Enter your password"
+										placeholder="Enter your secret"
 										required
-										[(ngModel)]="app.password"
-										name="password" />
+										[(ngModel)]="app.customerSecret"
+										name="customerSecret" />
 								</div>
 								<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="edit(app);">Edit</button>
 							</form>
@@ -114,24 +114,24 @@
 							<small id="urlHelp" class="form-text text-muted">Enter your WordPress URL with http(s) protocol.</small>
 						</div>
 						<div class="form-group">
-							<label for="key">Username</label>
+							<label for="key">Customer key</label>
 							<input type="text" class="form-control" id="key"
 								aria-describedby="usernameHelp"
-								placeholder="Enter your login"
+								placeholder="Enter your key"
 								required
-								[(ngModel)]="model.username"
-								name="username" />
-							<small id="usernameHelp" class="form-text text-muted">Enter your WordPress Login.</small>
+								[(ngModel)]="model.customerKey"
+								name="customerKey" />
+							<small id="usernameHelp" class="form-text text-muted">Enter your WordPress Customer key.</small>
 						</div>
 						<div class="form-group">
-							<label for="secret">Password</label>
+							<label for="secret">Customer secret</label>
 							<input type="text" class="form-control" id="secret"
 								aria-describedby="passwordHelp"
-								placeholder="Enter your password"
+								placeholder="Enter your customerSecret"
 								required
-								[(ngModel)]="model.password"
-								name="password" />
-							<small id="passwordHelp" class="form-text text-muted">Enter your WordPress password.</small>
+								[(ngModel)]="model.customerSecret"
+								name="consumerSecret" />
+							<small id="passwordHelp" class="form-text text-muted">Enter your WordPress Customer secret.</small>
 						</div>
 						<button type="button" class="btn btn-primary" (click)="add(model);">New App</button>
 					</form>
