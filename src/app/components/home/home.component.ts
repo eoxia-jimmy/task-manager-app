@@ -10,8 +10,8 @@ import { AuthDataService } from './../../services/auth-data/auth-data.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-	displayTask: boolean = false;
-	currentAppName: string = 'Select a WordPress';
+	public displayTask: boolean = false;
+	public currentAppName: string = 'Select a WordPress';
 
 	constructor(
 		private appService: AppService,
@@ -25,20 +25,18 @@ export class HomeComponent {
 
 		this.appService.checkInApp();
 		this.checkConnectedToApp();
-
-		this.authDataService.checkConnected();
-		this.appService.checkInApp();
-
-		this.checkConnectedToApp();
 	}
 
 	disconnected(): void {
-		localStorage.removeItem( 'id' );
-		localStorage.removeItem( 'username' );
-		localStorage.removeItem( 'password' );
+		localStorage.removeItem( 'oauth_callback_confirmed' );
+		localStorage.removeItem( 'oauth_step' );
+		localStorage.removeItem( 'oauth_token' );
+		localStorage.removeItem( 'oauth_token_secret' );
+		localStorage.removeItem( 'connected' );
+		localStorage.removeItem( 'mainID' );
+		localStorage.removeItem( 'oauth_verifier' );
 
 		this.authDataService.connected = false;
-
 		this.router.navigate(['/login']);
 	}
 

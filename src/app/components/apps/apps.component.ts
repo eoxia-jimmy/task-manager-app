@@ -26,7 +26,6 @@ export class AppsComponent {
 
 		this.authDataService.checkConnected();
 		this.appService.checkInApp();
-
 		if ( this.authDataService.connected ) {
 			this.getApps();
 		}

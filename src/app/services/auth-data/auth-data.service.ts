@@ -20,7 +20,13 @@ export class AuthDataService {
 	checkConnected(): void {
 		ses.clearStorageData({
 			storages: [
-				'cookies'
+				'appcache',
+				'cookies',
+				'filesystem',
+				'indexdb',
+				'shadercache',
+				'websql',
+				'serviceworkers',
 			]
 		});
 

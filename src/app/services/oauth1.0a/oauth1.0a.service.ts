@@ -37,18 +37,6 @@ export class Oauth10aService {
 
 	constructor(public httpClient: HttpClient) { }
 
-	login(): Observable<any> {
-		if ( 1 === Number(localStorage.getItem( 'oauth_step' )) ) {
-			this.openAuthorize();
-		} else if ( 2 === Number(localStorage.getItem( 'oauth_step' )) ) {
-			this.getToken();
-		} else {
-			this.getTemporarlyToken();
-		}
-
-		return of(true);
-	}
-
 	get(url: string): Observable<any> {
 		this.requestData.url = url;
 		this.requestData.method = 'GET';
@@ -92,38 +80,32 @@ export class Oauth10aService {
 		return this.httpClient.post(this.requestData.url, {}, options);
 	}
 
-	getTemporarlyToken(): void {
-		this.requestData.url = this.baseUrl + 'oauth1/request';
-
+	refresh(): void {
 		if ( localStorage.getItem( 'oauth_token' ) ) {
 			this.token.key = localStorage.getItem( 'oauth_token' );
+		} else {
+		this.token.key = '';
 		}
 
 		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
 			this.token.secret = localStorage.getItem( 'oauth_token_secret' );
+		} else {
+			this.token.secret = '';
 		}
-
-		this.httpClient.get(this.requestData.url, {
-			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
-			responseType: 'text'
-		}).subscribe(response => {
-			let data: any = response;
-			let tmp: any;
-			data = data.split('&');
-
-
-			for ( var key in data ) {
-				tmp = data[key].split('=');
-
-				localStorage.setItem( tmp[0], tmp[1] );
-			}
-
-			localStorage.setItem( 'oauth_step', '1' );
-			this.openAuthorize();
-		} );
 	}
 
-	openAuthorize(): void {
+	getTemporarlyToken(): Observable<any> {
+		this.requestData.url = this.baseUrl + 'oauth1/request';
+
+		this.refresh();
+
+		return this.httpClient.get(this.requestData.url, {
+			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
+			responseType: 'text'
+		})
+	}
+
+	openAuthorize(cb: any): any {
 		let win = new BrowserWindow( {show: false, width: 800, height: 600 } );
 		win.on('close', ( event ) => {
 			win.destroy();
@@ -141,7 +123,7 @@ export class Oauth10aService {
 					localStorage.setItem( 'oauth_verifier', result );
 					localStorage.setItem( 'oauth_step', '2' );
 					win.destroy();
-					this.getToken();
+					cb();
 				} );
 			}
 		} );
@@ -149,30 +131,14 @@ export class Oauth10aService {
 		win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token') );
 	}
 
-	getToken(): void {
+	getToken(): Observable<any> {
 		this.requestData.url = this.baseUrl + 'oauth1/access?oauth_verifier=' + localStorage.getItem( 'oauth_verifier' );
 
-		if ( localStorage.getItem( 'oauth_token' ) ) {
-			this.token.key = localStorage.getItem( 'oauth_token' );
-		}
-
-		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
-			this.token.secret = localStorage.getItem( 'oauth_token_secret' );
-		}
-
-		this.httpClient.get(this.requestData.url, {
+		this.refresh();
+		
+		return this.httpClient.get(this.requestData.url, {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
 			responseType: 'text'
-		}).subscribe(data => {
-			let storageData = {};
-			let response: any = data;
-			let tmpData: any = response.split( '&' );
-			console.log(tmpData);
-			for( let key in tmpData ) {
-				let tmp = tmpData[key].split( '=' );
-				localStorage.setItem( tmp[0], tmp[1] );
-			}
-			localStorage.setItem( 'connected', 'true' );
 		});
 	}
 }
