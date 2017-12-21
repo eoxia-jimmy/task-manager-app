@@ -24,11 +24,11 @@ export class AppsComponent {
 		public authDataService: AuthDataService,
 		public homeComponent: HomeComponent) {
 
-		this.authDataService.checkConnected();
-		this.appService.checkInApp();
-		if ( this.authDataService.connected ) {
-			this.getApps();
-		}
+		// this.authDataService.checkConnected();
+		// this.appService.checkInApp();
+		// if ( this.authDataService.connected ) {
+		// 	this.getApps();
+		// }
 	}
 
 	add(appData: App): void {

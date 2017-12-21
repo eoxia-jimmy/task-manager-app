@@ -27,7 +27,7 @@ export class LoginComponent {
 		private httpService: HttpService,
 		public authDataService: AuthDataService,
 		public oAuth10a: Oauth10aService ) {
-		this.authDataService.checkConnected();
+		// this.authDataService.checkConnected();
 	}
 
 	login(login: Login): void {
@@ -56,33 +56,36 @@ export class LoginComponent {
 			]
 		});
 
-		this.oAuth10a.getTemporarlyToken().subscribe(response => {
-			let data: any = response;
-			let tmp: any;
-			data = data.split('&');
-
-			for ( var key in data ) {
-				tmp = data[key].split('=');
-
-				localStorage.setItem( tmp[0], tmp[1] );
-			}
-
-			localStorage.setItem( 'oauth_step', '1' );
-
-			this.oAuth10a.openAuthorize(() => {
-				this.oAuth10a.getToken().subscribe(data => {
-					let storageData = {};
-					let response: any = data;
-					let tmpData: any = response.split( '&' );
-					for( let key in tmpData ) {
-						let tmp = tmpData[key].split( '=' );
-						localStorage.setItem( tmp[0], tmp[1] );
-					}
-
-					localStorage.setItem( 'connected', 'true' );
-					this.authDataService.checkConnected();
-				});
-			});
-		} );
+		localStorage.setItem( 'connected', 'true' );
+		this.router.navigate(['']);
+    //
+		// this.oAuth10a.getTemporarlyToken().subscribe(response => {
+		// 	let data: any = response;
+		// 	let tmp: any;
+		// 	data = data.split('&');
+    //
+		// 	for ( var key in data ) {
+		// 		tmp = data[key].split('=');
+    //
+		// 		localStorage.setItem( tmp[0], tmp[1] );
+		// 	}
+    //
+		// 	localStorage.setItem( 'oauth_step', '1' );
+    //
+		// 	this.oAuth10a.openAuthorize(() => {
+		// 		this.oAuth10a.getToken().subscribe(data => {
+		// 			let storageData = {};
+		// 			let response: any = data;
+		// 			let tmpData: any = response.split( '&' );
+		// 			for( let key in tmpData ) {
+		// 				let tmp = tmpData[key].split( '=' );
+		// 				localStorage.setItem( tmp[0], tmp[1] );
+		// 			}
+    //
+		// 			localStorage.setItem( 'connected', 'true' );
+		// 			this.router.navigate(['']);
+		// 		});
+		// 	});
+		// } );
 	}
 }
