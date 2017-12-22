@@ -5,12 +5,16 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-	{ path: '', component: HomeComponent, terminal: true },
-	{ path: 'login', component: LoginComponent, terminal: true }
+	{ path: '', component: HomeComponent, pathMatch: 'full' },
+	{ path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
-	imports: [ RouterModule.forRoot(routes, {useHash: true, enableTracing: true}) ],
+	imports: [ RouterModule.forRoot(
+		routes, {
+			useHash: true
+		}
+	) ],
 	exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

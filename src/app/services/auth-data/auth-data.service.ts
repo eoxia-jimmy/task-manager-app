@@ -17,7 +17,7 @@ export class AuthDataService {
 		private oauthService: Oauth10aService,
 		private router: Router) { }
 
-	checkConnected(): void {
+	checkConnected(cb?: any): void {
 		ses.clearStorageData({
 			storages: [
 				'appcache',
@@ -36,8 +36,7 @@ export class AuthDataService {
 
 				localStorage.setItem( 'mainID', data.id );
 
-				this.connected = true;
-				this.router.navigate(['/']);
+				if (cb) cb();
 			}, err => {
 				console.log(err);
 			});

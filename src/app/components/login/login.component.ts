@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+
 import { Login } from './../../models/login';
 
 import { HttpService } from './../../services/http/http.service';
@@ -16,7 +19,7 @@ const ses = win.webContents.session;
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 	loading: boolean = false;
 
 	model: Login = new Login('', '');
@@ -28,6 +31,10 @@ export class LoginComponent {
 		public authDataService: AuthDataService,
 		public oAuth10a: Oauth10aService ) {
 		// this.authDataService.checkConnected();
+	}
+
+	ngOnInit(): void {
+		console.log('init')
 	}
 
 	login(login: Login): void {
@@ -55,25 +62,35 @@ export class LoginComponent {
 				'serviceworkers',
 			]
 		});
+    //
+		this.oAuth10a.getTemporarlyToken().subscribe((response) => {
+			let data: any = response;
+			let tmp: any;
+			data = data.split('&');
 
-		localStorage.setItem( 'connected', 'true' );
-		this.router.navigate(['']);
-    //
-		// this.oAuth10a.getTemporarlyToken().subscribe(response => {
-		// 	let data: any = response;
-		// 	let tmp: any;
-		// 	data = data.split('&');
-    //
-		// 	for ( var key in data ) {
-		// 		tmp = data[key].split('=');
-    //
-		// 		localStorage.setItem( tmp[0], tmp[1] );
-		// 	}
-    //
-		// 	localStorage.setItem( 'oauth_step', '1' );
+			for ( var key in data ) {
+				tmp = data[key].split('=');
+
+				localStorage.setItem( tmp[0], tmp[1] );
+			}
+
+			this.oAuth10a.openAuthorize();
+
+			this.oAuth10a.test.subscribe(() => {
+
+			}, (err) => {
+				console.log(err);
+			}, () => {
+				localStorage.setItem( 'connected', '1' );
+					localStorage.setItem( 'mainID', '1' );
+					this.router.navigate(['/']);
+			} );
+
+			localStorage.setItem( 'oauth_step', '1' );
+		});
     //
 		// 	this.oAuth10a.openAuthorize(() => {
-		// 		this.oAuth10a.getToken().subscribe(data => {
+		// 		this.oAuth10a.getToken().subscribe((data)  => {
 		// 			let storageData = {};
 		// 			let response: any = data;
 		// 			let tmpData: any = response.split( '&' );
@@ -83,9 +100,19 @@ export class LoginComponent {
 		// 			}
     //
 		// 			localStorage.setItem( 'connected', 'true' );
-		// 			this.router.navigate(['']);
+		// 			this.authDataService.connected = true;
+    //
+		// 			this.authDataService.checkConnected(() => {
+		// 				this.router.navigate(['/']);
+		// 			});
 		// 		});
 		// 	});
 		// } );
+	}
+
+	test(): void {
+		console.log('navigate to /')
+		this.authDataService.connected = true;
+		this.router.navigate(['/']);
 	}
 }

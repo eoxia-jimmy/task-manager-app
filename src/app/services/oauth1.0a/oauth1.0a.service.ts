@@ -3,13 +3,19 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { AsyncSubject } from 'rxjs/Rx';
 
 const crypto        = require('crypto');
 const BrowserWindow = require('electron').remote.BrowserWindow
 var OAuth           = require('./oauth-1.0a.js');
 
+const test = require('electron').remote.getCurrentWindow();
+let ses = test.webContents.session;
+
 @Injectable()
 export class Oauth10aService {
+	test;
+	win;
 
 	oauth = OAuth({
 		consumer: {
@@ -105,37 +111,50 @@ export class Oauth10aService {
 		})
 	}
 
-	openAuthorize(cb: any): any {
-		let win = new BrowserWindow( {show: false, width: 800, height: 600 } );
-		win.on('close', ( event ) => {
-			win.destroy();
-			win = null; event.preventDefault();
+	openAuthorize(): void {
+		this.win = new BrowserWindow( {show: true, width: 800, height: 600 } );
+		this.test = new AsyncSubject();
+
+
+		this.win.webContents.on( 'did-frame-finish-load', ( event, isMainFrame ) => {
+			ses = this.win.webContents.session;
+			ses.clearStorageData({
+				origin: 'file://',
+				quotas: [
+					'temporary', 'persistent', 'syncable'
+				],
+				storages: [
+					'appcache',
+					'cookies',
+					'filesystem',
+					'indexdb',
+					'shadercache',
+					'websql',
+					'serviceworkers',
+				]
+			});
+			this.win.destroy();
+			this.test.complete();
+
+		// 	if ( this.win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize' || this.win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize&oauth_token=' + localStorage.getItem('oauth_token') ) {
+		// 		this.win.webContents.executeJavaScript('document.querySelector("code").innerHTML', false)
+		// 		.then((result) => {
+		// 			localStorage.setItem( 'oauth_verifier', result );
+		// 			localStorage.setItem( 'oauth_step', '2' );
+		// 			this.win.destroy();
+		// 		} );
+		// 	}
 		} );
 
-		win.once( 'ready-to-show', () => {
-			win.show();
-		});
-
-		win.webContents.on( 'did-frame-finish-load', ( event, isMainFrame ) => {
-			if ( win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize' || win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize&oauth_token=' + localStorage.getItem('oauth_token') ) {
-				win.webContents.executeJavaScript('document.querySelector("code").innerHTML', false)
-				.then((result) => {
-					localStorage.setItem( 'oauth_verifier', result );
-					localStorage.setItem( 'oauth_step', '2' );
-					win.destroy();
-					cb();
-				} );
-			}
-		} );
-
-		win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token') );
+		this.win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token') );
 	}
+
 
 	getToken(): Observable<any> {
 		this.requestData.url = this.baseUrl + 'oauth1/access?oauth_verifier=' + localStorage.getItem( 'oauth_verifier' );
 
 		this.refresh();
-		
+
 		return this.httpClient.get(this.requestData.url, {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
 			responseType: 'text'

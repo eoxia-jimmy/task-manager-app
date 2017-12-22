@@ -9,7 +9,7 @@ import { AuthDataService } from './../../services/auth-data/auth-data.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 	public displayTask: boolean = false;
 	public currentAppName: string = 'Select a WordPress';
 
@@ -17,29 +17,33 @@ export class HomeComponent {
 		private appService: AppService,
 		private authDataService: AuthDataService,
 		private router: Router) {
-		// this.authDataService.checkConnected();
 
-		console.log('here');
-		this.authDataService.connected = true;
+	}
 
-		// if ( ! this.authDataService.connected ) {
-		// 	this.router.navigate(['/login']);
-		// }
+	ngOnInit(): void {
+		console.log('HERE');
+		this.authDataService.checkConnected();
+    //
+		if ( ! this.authDataService.connected ) {
+			this.router.navigate(['/login']);
+		}
 
+		console.log(this.currentAppName);
+    //
 		// this.appService.checkInApp();
 		// this.checkConnectedToApp();
 	}
 
 	disconnected(): void {
-		// localStorage.removeItem( 'oauth_callback_confirmed' );
-		// localStorage.removeItem( 'oauth_step' );
-		// localStorage.removeItem( 'oauth_token' );
-		// localStorage.removeItem( 'oauth_token_secret' );
-		// localStorage.removeItem( 'connected' );
-		// localStorage.removeItem( 'mainID' );
-		// localStorage.removeItem( 'oauth_verifier' );
-    //
-		// this.authDataService.connected = false;
+		localStorage.removeItem( 'oauth_callback_confirmed' );
+		localStorage.removeItem( 'oauth_step' );
+		localStorage.removeItem( 'oauth_token' );
+		localStorage.removeItem( 'oauth_token_secret' );
+		localStorage.removeItem( 'connected' );
+		localStorage.removeItem( 'mainID' );
+		localStorage.removeItem( 'oauth_verifier' );
+
+		this.authDataService.connected = false;
 		this.router.navigate(['/login']);
 	}
 
