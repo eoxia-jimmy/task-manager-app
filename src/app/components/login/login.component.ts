@@ -64,29 +64,44 @@ export class LoginComponent implements OnInit {
 		});
     //
 		this.oAuth10a.getTemporarlyToken().subscribe((response) => {
-			let data: any = response;
-			let tmp: any;
-			data = data.split('&');
+			// let data: any = response;
+			// let tmp: any;
+			// data = data.split('&');
+      //
+			// // for ( var key in data ) {
+			// // 	tmp = data[key].split('=');
+      // //
+			// // 	localStorage.setItem( tmp[0], tmp[1] );
+			// // }
 
-			for ( var key in data ) {
-				tmp = data[key].split('=');
+			this.oAuth10a.getTemporarlyToken().subscribe((response) => {
+				let data: any = response;
+				let tmp: any;
+				data = data.split('&');
 
-				localStorage.setItem( tmp[0], tmp[1] );
-			}
+				for ( var key in data ) {
+					tmp = data[key].split('=');
 
-			this.oAuth10a.openAuthorize();
+					localStorage.setItem( tmp[0], tmp[1] );
+				}
 
-			this.oAuth10a.test.subscribe(() => {
-
-			}, (err) => {
-				console.log(err);
-			}, () => {
 				localStorage.setItem( 'connected', '1' );
 					localStorage.setItem( 'mainID', '1' );
 					this.router.navigate(['/']);
-			} );
-
-			localStorage.setItem( 'oauth_step', '1' );
+			});
+			// this.oAuth10a.openAuthorize();
+      //
+			// this.oAuth10a.test.subscribe(() => {
+      //
+			// }, (err) => {
+			// 	console.log(err);
+			// }, () => {
+			// 	localStorage.setItem( 'connected', '1' );
+			// 		localStorage.setItem( 'mainID', '1' );
+			// 		this.router.navigate(['/']);
+			// } );
+      //
+			// localStorage.setItem( 'oauth_step', '1' );
 		});
     //
 		// 	this.oAuth10a.openAuthorize(() => {

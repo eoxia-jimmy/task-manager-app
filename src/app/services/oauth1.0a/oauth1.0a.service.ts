@@ -9,9 +9,6 @@ const crypto        = require('crypto');
 const BrowserWindow = require('electron').remote.BrowserWindow
 var OAuth           = require('./oauth-1.0a.js');
 
-const test = require('electron').remote.getCurrentWindow();
-let ses = test.webContents.session;
-
 @Injectable()
 export class Oauth10aService {
 	test;
@@ -115,26 +112,15 @@ export class Oauth10aService {
 		this.win = new BrowserWindow( {show: true, width: 800, height: 600 } );
 		this.test = new AsyncSubject();
 
-
-		this.win.webContents.on( 'did-frame-finish-load', ( event, isMainFrame ) => {
-			ses = this.win.webContents.session;
-			ses.clearStorageData({
-				origin: 'file://',
-				quotas: [
-					'temporary', 'persistent', 'syncable'
-				],
-				storages: [
-					'appcache',
-					'cookies',
-					'filesystem',
-					'indexdb',
-					'shadercache',
-					'websql',
-					'serviceworkers',
-				]
-			});
+		this.win.webContents.on( 'did-finish-load', (event, isMainFrame) => {
 			this.win.destroy();
+			this.win = null;
+		} );
+
+		this.win.webContents.on( 'destroyed', () => {
 			this.test.complete();
+
+		} );
 
 		// 	if ( this.win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize' || this.win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize&oauth_token=' + localStorage.getItem('oauth_token') ) {
 		// 		this.win.webContents.executeJavaScript('document.querySelector("code").innerHTML', false)
@@ -144,11 +130,10 @@ export class Oauth10aService {
 		// 			this.win.destroy();
 		// 		} );
 		// 	}
-		} );
+		// } );
 
-		this.win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token') );
+		this.win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token'), {"extraHeaders" : "pragma: no-cache\n"} );
 	}
-
 
 	getToken(): Observable<any> {
 		this.requestData.url = this.baseUrl + 'oauth1/access?oauth_verifier=' + localStorage.getItem( 'oauth_verifier' );
