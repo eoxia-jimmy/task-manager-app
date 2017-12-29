@@ -109,18 +109,22 @@ export class Oauth10aService {
 	}
 
 	openAuthorize(): void {
-		this.win = new BrowserWindow( {show: true, width: 800, height: 600 } );
+		this.win = new BrowserWindow( {
+			show: false,
+			modal: true,
+			webPreferences: {
+				nativeWindowOpen: true
+			}
+		} );
+
 		this.test = new AsyncSubject();
 
-		this.win.webContents.on( 'did-finish-load', (event, isMainFrame) => {
-			this.win.destroy();
-			this.win = null;
-		} );
-
-		this.win.webContents.on( 'destroyed', () => {
+		this.win.addListener('ready-to-show', () => {
+			this.win.close();
 			this.test.complete();
 
-		} );
+			this.win = null
+		})
 
 		// 	if ( this.win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize' || this.win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize&oauth_token=' + localStorage.getItem('oauth_token') ) {
 		// 		this.win.webContents.executeJavaScript('document.querySelector("code").innerHTML', false)
