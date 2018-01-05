@@ -27,8 +27,8 @@ export class HomeComponent implements OnInit {
 			this.router.navigate(['/login']);
 		}
 
-		// this.appService.checkInApp();
-		// this.checkConnectedToApp();
+		this.appService.checkInApp();
+		this.checkConnectedToApp();
 	}
 
 	disconnected(): void {

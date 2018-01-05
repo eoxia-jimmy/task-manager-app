@@ -6,6 +6,9 @@ import { HomeComponent } from '../home/home.component';
 
 import { AppService } from '../../services/app/app.service';
 import { AuthDataService } from './../../services/auth-data/auth-data.service';
+import { Oauth10aService } from './../../services/oauth1.0a/oauth1.0a.service';
+
+const BrowserWindow = require('electron').remote.BrowserWindow
 
 @Component({
   selector: 'app-apps',
@@ -22,24 +25,28 @@ export class AppsComponent {
 	constructor(
 		private appService: AppService,
 		public authDataService: AuthDataService,
+		public oAuth10a: Oauth10aService,
 		public homeComponent: HomeComponent) {
 
-		// this.authDataService.checkConnected();
-		// this.appService.checkInApp();
-		// if ( this.authDataService.connected ) {
-		// 	this.getApps();
-		// }
+		this.authDataService.checkConnected();
+		this.appService.checkInApp();
+		if ( this.authDataService.connected ) {
+			this.getApps();
+		}
 	}
 
 	add(appData: App): void {
 		this.appService.add(appData).subscribe( ( data ) => {
-			this.refreshList(data);
+			this.oAuth10a.login(appData.name, appData.url, appData.customerKey, appData.customerSecret).subscribe( (data) => {
+			} );
+
 		} );
 	}
 
 	edit(appData: App): void {
 		this.appService.add(appData).subscribe( ( data ) => {
-			this.refreshList(data);
+			this.oAuth10a.login(appData.name, appData.url, appData.customerKey, appData.customerSecret).subscribe( (data) => {
+			} );
 		} );
 	}
 
@@ -78,8 +85,8 @@ export class AppsComponent {
 			appData.id,
 			appData.title,
 			appData.url,
-			appData.consumerKey,
-			appData.consumerSecret,
+			appData.customer_key,
+			appData.customer_secret,
 		);
 
 		this.apps.push( tmpApp );
@@ -94,6 +101,14 @@ export class AppsComponent {
 		} );
 	}
 
+	tmpToken(): void {
+
+	}
+
+	checkVerifier(code: string): void {
+		console.log(code);
+	}
+
 	connect(appData: App): void {
 		this.appService.connect(appData).subscribe(response => {
 			let data: any = response;
@@ -102,7 +117,6 @@ export class AppsComponent {
 			localStorage.setItem( 'currentAppName', appData.name );
 			localStorage.setItem( 'currentAppUserId', data.id );
 			localStorage.setItem( 'currentAppCustomerKey', appData.customerKey );
-			localStorage.setItem( 'currentAppCustomerSecret', appData.customerSecret );
 			localStorage.setItem( 'currentAppCustomerSecret', appData.customerSecret );
 			localStorage.setItem( 'currentAppURL', appData.url );
 

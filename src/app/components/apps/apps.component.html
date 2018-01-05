@@ -59,8 +59,17 @@
 										[(ngModel)]="app.customerSecret"
 										name="customerSecret" />
 								</div>
-								<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="edit(app);">Edit</button>
+								<button type="button" class="btn btn-primary" (click)="edit(app);">Edit</button>
 							</form>
+
+							<div class="form-group">
+								<label for="secret">Verifier</label>
+								<input type="text" class="form-control"
+									placeholder="Enter your verifier"
+									required
+									#code />
+								<button type="button" class="btn btn-primary" (click)="checkVerifier(code.value)">Verifier</button>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -135,6 +144,15 @@
 						</div>
 						<button type="button" class="btn btn-primary" (click)="add(model);">New App</button>
 					</form>
+
+					<div class="form-group">
+						<label for="secret">Verifier</label>
+						<input type="text" class="form-control"
+							placeholder="Enter your verifier"
+							required
+							#verifier />
+						<button type="button" class="btn btn-primary" (click)="verifier(verifier.value);">Verifier</button>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

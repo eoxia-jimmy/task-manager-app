@@ -22,7 +22,9 @@ export class Oauth10aService {
 		}
 	});
 
-	baseUrl: string = 'http://164.132.69.238/wp-task-manager-app/wordpress/';
+	namespace: string = '';
+
+	baseUrl: string = '';
 
 	requestData: any = {
 		url: '',
@@ -37,23 +39,35 @@ export class Oauth10aService {
 
 	constructor(public httpClient: HttpClient) { }
 
-	login(): Observable<any> {
+	login(namespace: string,
+		baseUrl: string,
+		customerKey: string,
+		customerSecret: string): Observable<any> {
+		this.namespace = namespace;
+		this.baseUrl = baseUrl;
+		this.oauth.consumer.key = customerKey;
+		this.oauth.consumer.secret = customerSecret;
+
 		this.getTemporarlyToken();
 		return of(true);
 	}
 
-	get(url: string): Observable<any> {
+	get(namespace: string, url: string): Observable<any> {
+		this.namespace = namespace;
 		this.requestData.url = url;
 		this.requestData.method = 'GET';
+		this.requestData.body = {};
 
-		if ( localStorage.getItem( 'oauth_token' ) ) {
-			this.token.key = localStorage.getItem( 'oauth_token' );
+		this.token.key = '';
+		this.token.secret = '';
+
+		if ( localStorage.getItem( this.namespace + '_oauth_token' ) ) {
+			this.token.key = localStorage.getItem( this.namespace + '_oauth_token' );
 		}
 
-		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
-			this.token.secret = localStorage.getItem( 'oauth_token_secret' );
+		if ( localStorage.getItem( this.namespace + '_oauth_token_secret' ) ) {
+			this.token.secret = localStorage.getItem( this.namespace + '_oauth_token_secret' );
 		}
-
 
 		let options = {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
@@ -64,15 +78,15 @@ export class Oauth10aService {
 		return this.httpClient.get(this.requestData.url, options);
 	}
 
-	post(url: string, body: any): Observable<any> {
+	post(namespace: string, url: string, body: any): Observable<any> {
 		this.requestData.url = url;
 
-		if ( localStorage.getItem( 'oauth_token' ) ) {
-			this.token.key = localStorage.getItem( 'oauth_token' );
+		if ( localStorage.getItem( this.namespace + '_oauth_token' ) ) {
+			this.token.key = localStorage.getItem( this.namespace + '_oauth_token' );
 		}
 
-		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
-			this.token.secret = localStorage.getItem( 'oauth_token_secret' );
+		if ( localStorage.getItem( this.namespace + '_oauth_token_secret' ) ) {
+			this.token.secret = localStorage.getItem( this.namespace + '_oauth_token_secret' );
 		}
 
 		this.requestData.method = 'POST';
@@ -82,19 +96,19 @@ export class Oauth10aService {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
 		};
 
-		return this.httpClient.post(this.requestData.url, {}, options);
+		return this.httpClient.post(this.requestData.url, body, options);
 	}
 
 	getTemporarlyToken(): void {
 		this.requestData.url = this.baseUrl + 'oauth1/request/';
 
-		if ( localStorage.getItem( 'oauth_token' ) ) {
-			this.token.key = localStorage.getItem( 'oauth_token' );
-		}
+		this.oauth_verifier = '';
+		this.token.key = '';
+		this.token.secret = '';
+		this.requestData.body = {};
 
-		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
-			this.token.secret = localStorage.getItem( 'oauth_token_secret' );
-		}
+		console.log(this.oauth)
+		console.log(this.token);
 
 		this.httpClient.get(this.requestData.url, {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
@@ -108,7 +122,7 @@ export class Oauth10aService {
 			for ( var key in data ) {
 				tmp = data[key].split('=');
 
-				localStorage.setItem( tmp[0], tmp[1] );
+				localStorage.setItem( this.namespace + '_' + tmp[0], tmp[1] );
 			}
 
 			this.openAuthorize();
@@ -117,18 +131,18 @@ export class Oauth10aService {
 
 	openAuthorize(): void {
 		let win = new BrowserWindow( {show: true, width: 800, height: 600 } );
-		win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token') );
+		win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem( this.namespace + '_oauth_token') );
 	}
 
 	getToken(oauthVerifier: string): Observable<any> {
 		this.requestData.url = this.baseUrl + 'oauth1/access?oauth_verifier=' + oauthVerifier;
 
-		if ( localStorage.getItem( 'oauth_token' ) ) {
-			this.token.key = localStorage.getItem( 'oauth_token' );
+		if ( localStorage.getItem( this.namespace + '_oauth_token' ) ) {
+			this.token.key = localStorage.getItem( this.namespace + '_oauth_token' );
 		}
 
-		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
-			this.token.secret = localStorage.getItem( 'oauth_token_secret' );
+		if ( localStorage.getItem( this.namespace + '_oauth_token_secret' ) ) {
+			this.token.secret = localStorage.getItem( this.namespace + '_oauth_token_secret' );
 		}
 
 		return this.httpClient.get(this.requestData.url, {

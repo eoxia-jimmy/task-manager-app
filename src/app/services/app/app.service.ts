@@ -20,7 +20,7 @@ export class AppService {
 	}
 
 	add(appData: App): Observable<any> {
-		return this.oauthService.post('http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp-instance/v1/instance/', {
+		return this.oauthService.post('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp-instance/v1/instance/', {
 			app_id: appData.id,
 			app_title: appData.name,
 			app_url: appData.url,
@@ -30,17 +30,17 @@ export class AppService {
 	}
 
 	remove(appData: App): Observable<any> {
-		return this.oauthService.post('http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/tmapp/v2/user/1/remove', {
+		return this.oauthService.post('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/tmapp/v2/user/1/remove', {
 			app_id: appData.id
 		});
 	}
 
 	getApps(): Observable<any> {
-		return this.oauthService.get('http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp-instance/v1/instance');
+		return this.oauthService.get('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp-instance/v1/instance');
 	}
 
 	connect(appData: App): Observable<any> {
-		return this.oauthService.get(appData.url + 'wp-json/wp/v2/users/me');
+		return this.oauthService.get('main', appData.url + 'wp-json/wp/v2/users/me');
 	}
 
 
