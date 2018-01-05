@@ -21,15 +21,12 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		console.log('HERE');
 		this.authDataService.checkConnected();
     //
 		if ( ! this.authDataService.connected ) {
 			this.router.navigate(['/login']);
 		}
 
-		console.log(this.currentAppName);
-    //
 		// this.appService.checkInApp();
 		// this.checkConnectedToApp();
 	}

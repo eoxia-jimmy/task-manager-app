@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { AsyncSubject } from 'rxjs/Rx';
 
 const crypto        = require('crypto');
 const BrowserWindow = require('electron').remote.BrowserWindow
@@ -11,13 +10,11 @@ var OAuth           = require('./oauth-1.0a.js');
 
 @Injectable()
 export class Oauth10aService {
-	test;
-	win;
 
 	oauth = OAuth({
 		consumer: {
 			key: 'pIdXmYf2DEx7',
-			secret: '9n3WUQYOXQeYH48mIgMkSArefpZ1RDKxcpIDphNecZnxw9Dj'
+			secret: '1xKXsJYoSDHqE7wTHbiokb6N6gxZ2jUkV1NNIS0xdcX1WNpk'
 		},
 		signature_method: 'HMAC-SHA1',
 		hash_function: function(base_string, key) {
@@ -39,6 +36,11 @@ export class Oauth10aService {
 	};
 
 	constructor(public httpClient: HttpClient) { }
+
+	login(): Observable<any> {
+		this.getTemporarlyToken();
+		return of(true);
+	}
 
 	get(url: string): Observable<any> {
 		this.requestData.url = url;
@@ -83,66 +85,51 @@ export class Oauth10aService {
 		return this.httpClient.post(this.requestData.url, {}, options);
 	}
 
-	refresh(): void {
+	getTemporarlyToken(): void {
+		this.requestData.url = this.baseUrl + 'oauth1/request/';
+
 		if ( localStorage.getItem( 'oauth_token' ) ) {
 			this.token.key = localStorage.getItem( 'oauth_token' );
-		} else {
-		this.token.key = '';
 		}
 
 		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
 			this.token.secret = localStorage.getItem( 'oauth_token_secret' );
-		} else {
-			this.token.secret = '';
 		}
-	}
 
-	getTemporarlyToken(): Observable<any> {
-		this.requestData.url = this.baseUrl + 'oauth1/request';
-
-		this.refresh();
-
-		return this.httpClient.get(this.requestData.url, {
+		this.httpClient.get(this.requestData.url, {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
 			responseType: 'text'
-		})
+		}).subscribe(response => {
+			let data: any = response;
+			let tmp: any;
+			data = data.split('&');
+
+
+			for ( var key in data ) {
+				tmp = data[key].split('=');
+
+				localStorage.setItem( tmp[0], tmp[1] );
+			}
+
+			this.openAuthorize();
+		} );
 	}
 
 	openAuthorize(): void {
-		this.win = new BrowserWindow( {
-			show: false,
-			modal: true,
-			webPreferences: {
-				nativeWindowOpen: true
-			}
-		} );
-
-		this.test = new AsyncSubject();
-
-		this.win.addListener('ready-to-show', () => {
-			this.win.close();
-			this.test.complete();
-
-			this.win = null
-		})
-
-		// 	if ( this.win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize' || this.win.webContents.getURL() == this.baseUrl + 'wp-login.php?action=oauth1_authorize&oauth_token=' + localStorage.getItem('oauth_token') ) {
-		// 		this.win.webContents.executeJavaScript('document.querySelector("code").innerHTML', false)
-		// 		.then((result) => {
-		// 			localStorage.setItem( 'oauth_verifier', result );
-		// 			localStorage.setItem( 'oauth_step', '2' );
-		// 			this.win.destroy();
-		// 		} );
-		// 	}
-		// } );
-
-		this.win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token'), {"extraHeaders" : "pragma: no-cache\n"} );
+		let win = new BrowserWindow( {show: true, width: 800, height: 600 } );
+		win.loadURL(this.baseUrl + 'oauth1/authorize?oauth_token=' + localStorage.getItem('oauth_token') );
 	}
 
-	getToken(): Observable<any> {
-		this.requestData.url = this.baseUrl + 'oauth1/access?oauth_verifier=' + localStorage.getItem( 'oauth_verifier' );
+	getToken(oauthVerifier: string): Observable<any> {
+		this.requestData.url = this.baseUrl + 'oauth1/access?oauth_verifier=' + oauthVerifier;
 
-		this.refresh();
+		if ( localStorage.getItem( 'oauth_token' ) ) {
+			this.token.key = localStorage.getItem( 'oauth_token' );
+		}
+
+		if ( localStorage.getItem( 'oauth_token_secret' ) ) {
+			this.token.secret = localStorage.getItem( 'oauth_token_secret' );
+		}
 
 		return this.httpClient.get(this.requestData.url, {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),
