@@ -16,13 +16,11 @@ export class HomeComponent implements OnInit {
 	constructor(
 		private appService: AppService,
 		private authDataService: AuthDataService,
-		private router: Router) {
-
-	}
+		private router: Router) {}
 
 	ngOnInit(): void {
 		this.authDataService.checkConnected();
-    //
+
 		if ( ! this.authDataService.connected ) {
 			this.router.navigate(['/login']);
 		}

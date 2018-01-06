@@ -102,13 +102,10 @@ export class Oauth10aService {
 	getTemporarlyToken(): void {
 		this.requestData.url = this.baseUrl + 'oauth1/request/';
 
-		this.oauth_verifier = '';
 		this.token.key = '';
 		this.token.secret = '';
 		this.requestData.body = {};
-
-		console.log(this.oauth)
-		console.log(this.token);
+		this.requestData.method = 'GET';
 
 		this.httpClient.get(this.requestData.url, {
 			headers: this.oauth.toHeader( this.oauth.authorize( this.requestData, this.token ) ),

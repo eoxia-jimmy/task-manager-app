@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		console.log('ok');
 	}
 
 	login(login: Login): void {
