@@ -39,26 +39,25 @@ export class LoginComponent implements OnInit {
 	}
 
 	login(login: Login): void {
-		this.oAuth10a.login('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/', 'pIdXmYf2DEx7', '1xKXsJYoSDHqE7wTHbiokb6N6gxZ2jUkV1NNIS0xdcX1WNpk').subscribe( (data) => {
-			this.displayVerifier = true;
-		} );
+		this.oAuth10a.getTemporarlyToken('main');
 	}
 
 	checkKey(key: string): void {
-		this.oAuth10a.getToken(key).subscribe( (data) => {
-			let storageData = {};
-			let response: any = data;
-			let tmpData: any = response.split( '&' );
-
-			for( let key in tmpData ) {
-				let tmp = tmpData[key].split( '=' );
-				localStorage.setItem( 'main_' + tmp[0], tmp[1] );
-			}
-
-			localStorage.setItem( 'connected', 'true' );
-			this.authDataService.connected = true;
-			this.router.navigate(['/']);
-		});
+	// 	this.oAuth10a.getToken(key).subscribe( (data) => {
+	// 		let storageData = {};
+	// 		let response: any = data;
+	// 		let tmpData: any = response.split( '&' );
+  //
+	// 		for( let key in tmpData ) {
+	// 			let tmp = tmpData[key].split( '=' );
+	// 			localStorage.setItem( 'main_' + tmp[0], tmp[1] );
+	// 		}
+  //
+	// 		localStorage.setItem( 'connected', 'true' );
+	// 		this.authDataService.connected = true;
+	// 		this.router.navigate(['/']);
+	// 	});
+	// }
 	}
 
 }

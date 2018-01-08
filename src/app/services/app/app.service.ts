@@ -5,13 +5,13 @@ import { of } from 'rxjs/observable/of';
 
 import { App } from '../../models/app';
 
-import { Oauth10aService } from './../oauth1.0a/oauth1.0a.service';
+import { HttpService } from '../http/http.service';
 
 @Injectable()
 export class AppService {
 	connected: boolean = false;
 
-	constructor(private oauthService: Oauth10aService) { }
+	constructor(private httpService: HttpService) { }
 
 	checkInApp(): void {
 		if ( localStorage.getItem( 'currentAppUsername' ) ) {
@@ -20,7 +20,7 @@ export class AppService {
 	}
 
 	add(appData: App): Observable<any> {
-		return this.oauthService.post('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp-instance/v1/instance/', {
+		return this.httpService.post('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp-instance/v1/instance/', {
 			app_id: appData.id,
 			app_title: appData.name,
 			app_url: appData.url,
@@ -30,17 +30,17 @@ export class AppService {
 	}
 
 	remove(appData: App): Observable<any> {
-		return this.oauthService.post('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/tmapp/v2/user/1/remove', {
+		return this.httpService.post('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/tmapp/v2/user/1/remove', {
 			app_id: appData.id
 		});
 	}
 
 	getApps(): Observable<any> {
-		return this.oauthService.get('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp-instance/v1/instance');
+		return this.httpService.get('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp-instance/v1/instance');
 	}
 
 	connect(appData: App): Observable<any> {
-		return this.oauthService.get('main', appData.url + 'wp-json/wp/v2/users/me');
+		return this.httpService.get( appData.name, appData.url + 'wp-json/wp/v2/users/me');
 	}
 
 
