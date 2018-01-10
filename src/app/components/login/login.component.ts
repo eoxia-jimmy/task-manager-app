@@ -34,30 +34,37 @@ export class LoginComponent implements OnInit {
 		this.authDataService.checkConnected();
 	}
 
-	ngOnInit(): void {
-		console.log('ok');
-	}
+	ngOnInit(): void {}
 
 	login(login: Login): void {
-		this.oAuth10a.getTemporarlyToken('main');
+		this.displayVerifier = true;
+		this.oAuth10a.getTemporarlyToken('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/');
 	}
 
 	checkKey(key: string): void {
-	// 	this.oAuth10a.getToken(key).subscribe( (data) => {
-	// 		let storageData = {};
-	// 		let response: any = data;
-	// 		let tmpData: any = response.split( '&' );
-  //
-	// 		for( let key in tmpData ) {
-	// 			let tmp = tmpData[key].split( '=' );
-	// 			localStorage.setItem( 'main_' + tmp[0], tmp[1] );
-	// 		}
-  //
-	// 		localStorage.setItem( 'connected', 'true' );
-	// 		this.authDataService.connected = true;
-	// 		this.router.navigate(['/']);
-	// 	});
-	// }
+		this.oAuth10a.getToken('main', key, 'http://164.132.69.238/wp-task-manager-app/wordpress/').subscribe( (data) => {
+			let storageData = {};
+			let response: any = data;
+			let tmpData: any = response.split( '&' );
+
+			for ( var key in tmpData ) {
+				let tmp: any = tmpData[key].split('=');
+				switch(tmp[0]) {
+					case 'oauth_token':
+						localStorage.setItem( 'mainToken', tmp[1]);
+						break;
+					case 'oauth_token_secret':
+						localStorage.setItem( 'mainTokenSecret', tmp[1]);
+						break;
+					default:
+					break;
+				}
+			}
+
+			localStorage.setItem( 'connected', 'true' );
+			this.authDataService.connected = true;
+			this.router.navigate(['/']);
+		});
 	}
 
 }

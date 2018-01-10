@@ -13,16 +13,16 @@ export class TaskService {
 	constructor(private httpService: HttpService) { }
 
 	add(): Observable<any> {
-		return this.httpService.post(localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/task', {
+		return this.httpService.post(localStorage.getItem( 'currentAppName' ), localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/task', {
 			title: 'Nouvelle tâche'
-		} );
+		}, 'json' );
 	}
 
 	put(data: Task): Observable<any> {
-		return this.httpService.post(localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/task', data );
+		return this.httpService.post(localStorage.getItem( 'currentAppName' ), localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/task', data, 'json' );
 	}
 
 	get(): Observable<any> {
-		return this.httpService.get(localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/task');
+		return this.httpService.get(localStorage.getItem( 'currentAppName' ), localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/task', 'json' );
 	}
 }

@@ -31,7 +31,7 @@ export class AuthDataService {
 		});
 
 		if ( ! localStorage.getItem( 'mainID' ) && localStorage.getItem( 'connected' ) ) {
-			this.httpService.get('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/wp-json/wp/v2/users/me').subscribe(response => {
+			this.httpService.get('main', 'http://164.132.69.238/wp-task-manager-app/wordpress/', 'wp-json/wp/v2/users/me', 'json').subscribe(response => {
 				let data: any = response;
 
 				localStorage.setItem( 'mainID', data.id );

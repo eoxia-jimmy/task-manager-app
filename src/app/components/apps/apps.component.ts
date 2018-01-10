@@ -44,9 +44,10 @@ export class AppsComponent {
 	}
 
 	edit(appData: App): void {
+		localStorage.setItem( appData.name + 'CustomerKey', appData.customerKey );
+		localStorage.setItem( appData.name + 'CustomerSecret', appData.customerSecret );
 		this.appService.add(appData).subscribe( ( data ) => {
-			// this.oAuth10a.login(appData.name, appData.url, appData.customerKey, appData.customerSecret).subscribe( (data) => {
-			// } );
+			this.oAuth10a.getTemporarlyToken(appData.name, appData.url);
 		} );
 	}
 
@@ -102,48 +103,57 @@ export class AppsComponent {
 	}
 
 	checkVerifier(appData: App, code: string): void {
-		// this.oAuth10a.getToken(code).subscribe( (data) => {
-		// 	let storageData = {};
-		// 	let response: any = data;
-		// 	let tmpData: any = response.split( '&' );
-    //
-		// 	for( let key in tmpData ) {
-		// 		let tmp = tmpData[key].split( '=' );
-		// 		localStorage.setItem( appData.name + "_" + tmp[0], tmp[1] );
-		// 	}
-		// });
+		this.oAuth10a.getToken(appData.name, code, appData.url).subscribe( (data) => {
+			let storageData = {};
+			let response: any = data;
+			let tmpData: any = response.split( '&' );
+
+			for ( var key in tmpData ) {
+				let tmp: any = tmpData[key].split('=');
+				switch(tmp[0]) {
+					case 'oauth_token':
+						localStorage.setItem( appData.name + 'Token', tmp[1]);
+						break;
+					case 'oauth_token_secret':
+						localStorage.setItem( appData.name + 'TokenSecret', tmp[1]);
+						break;
+					default:
+					break;
+				}
+			}
+		});
 	}
 
 	connect(appData: App): void {
-		// this.appService.connect(appData).subscribe(response => {
-		// 	let data: any = response;
-    //
-		// 	localStorage.setItem( 'currentAppId', appData.id.toString() );
-		// 	localStorage.setItem( 'currentAppName', appData.name );
-		// 	localStorage.setItem( 'currentAppUserId', data.id );
-		// 	localStorage.setItem( 'currentAppCustomerKey', appData.customerKey );
-		// 	localStorage.setItem( 'currentAppCustomerSecret', appData.customerSecret );
-		// 	localStorage.setItem( 'currentAppURL', appData.url );
-		// 	localStorage.setItem( 'currentAppToken', appData.url );
-    //
-		// 	this.appService.connected = true;
-    //
-		// 	this.homeComponent.checkConnectedToApp();
-    //
-		// 	this.getApps();
-		// }, err => {
-		// 	localStorage.removeItem( 'currentAppId' );
-		// 	localStorage.removeItem( 'currentAppName' );
-		// 	localStorage.removeItem( 'currentAppUserId' );
-		// 	localStorage.removeItem( 'currentAppCustomerKey' );
-		// 	localStorage.removeItem( 'currentAppCustomerSecret' );
-		// 	localStorage.removeItem( 'currentAppURL' );
-		// 	localStorage.removeItem( 'currentAppToken' );
-    //
-		// 	this.appService.connected = false;
-    //
-		// 	this.homeComponent.checkConnectedToApp();
-		// });
+		this.appService.connect(appData).subscribe(response => {
+			let data: any = response;
+
+			localStorage.setItem( 'currentAppId', appData.id.toString() );
+			localStorage.setItem( 'currentAppName', appData.name );
+			localStorage.setItem( 'currentAppUserId', data.id );
+			localStorage.setItem( 'currentAppCustomerKey', appData.customerKey );
+			localStorage.setItem( 'currentAppCustomerSecret', appData.customerSecret );
+			localStorage.setItem( 'currentAppURL', appData.url );
+			localStorage.setItem( 'currentAppToken', appData.url );
+
+			this.appService.connected = true;
+
+			this.homeComponent.checkConnectedToApp();
+
+			this.getApps();
+		}, err => {
+			localStorage.removeItem( 'currentAppId' );
+			localStorage.removeItem( 'currentAppName' );
+			localStorage.removeItem( 'currentAppUserId' );
+			localStorage.removeItem( 'currentAppCustomerKey' );
+			localStorage.removeItem( 'currentAppCustomerSecret' );
+			localStorage.removeItem( 'currentAppURL' );
+			localStorage.removeItem( 'currentAppToken' );
+
+			this.appService.connected = false;
+
+			this.homeComponent.checkConnectedToApp();
+		});
 	}
 
 }
