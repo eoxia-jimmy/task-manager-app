@@ -14,7 +14,7 @@ export class AppService {
 	constructor(private httpService: HttpService) { }
 
 	checkInApp(): void {
-		if ( localStorage.getItem( 'currentAppUsername' ) ) {
+		if ( localStorage.getItem( 'currentAppToken' ) ) {
 			this.connected = true;
 		}
 	}

@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	checkConnectedToApp(): void {
+		console.log(this.appService.connected);
 		this.displayTask = this.appService.connected;
 
 		if ( this.displayTask ) {

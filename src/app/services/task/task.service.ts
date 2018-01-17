@@ -25,4 +25,10 @@ export class TaskService {
 	get(): Observable<any> {
 		return this.httpService.get(localStorage.getItem( 'currentAppName' ), localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/task', 'json' );
 	}
+
+	sendToArchive(task: Task): Observable<any> {
+		return this.httpService.post(localStorage.getItem( 'currentAppName' ), localStorage.getItem( 'currentAppURL' ), 'wp-json/task_manager/v1/task/toarchive', {
+			id: task.id
+		}, 'json' );
+	}
 }

@@ -9,11 +9,7 @@
 		<div class="task-content {{task.front_info.display_color}}">
 
 			<ul class="task-header">
-				<li class="task-owner">
-					<div class="user" style="width: 32px; height: 32px;">
-						<img class="avatar avatar-32" src="http://2.gravatar.com/avatar/e687cb4a2450eb958a3e56294372e77e?s=32&amp;d=blank&amp;r=g">
-					</div>
-				</li>
+				<app-owner [task]="task"></app-owner>
 
 				<li class="task-id">#{{task.id}}</li>
 				<li class="task-title">
@@ -36,24 +32,14 @@
 					<span>{{task.time_info.time_display}}</span>
 				</li>
 				<li>
-					<span class="fa fa-history" aria-hidden="true"></span>
+					<app-time-history [task]="task"></app-time-history>
 				</li>
 			</ul>
 
 			<div class="points">
 				<app-point [task]="task" [completed]="false" [points_id]="task.task_info.order_point_id"></app-point>
 
-				<div class="point add">
-					<ul class="point-container">
-						<li class="point-content">
-							<input type="text" name="content" value="" [(ngModel)]="content">
-						</li>
-
-						<li>
-							<div class="wpeo-button button-radius-1" (click)="addPoint(task.id, content)"><span class="fa fa-plus" aria-hidden="true"></span></div>
-						</li>
-					</ul>
-				</div>
+				<app-point-add [task]="task"></app-point-add>
 			</div>
 
 			<div class="point-completed-toggle">

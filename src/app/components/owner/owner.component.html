@@ -1,0 +1,13 @@
+<li appWpeoDropdown class="task-owner wpeo-dropdown" *ngIf="currentUser">
+	<div class="dropdown-toggle user" style="width: 32px; height: 32px;">
+		<div class="wpeo-avatar-initial"><span>{{currentUser.initial}}</span></div>
+	</div>
+
+	<ul class="dropdown-content">
+		<li *ngFor="let user of users" (click)="changeOwner(task, user)">
+			<div class="user" style="width: 32px; height: 32px;">
+				<div class="wpeo-avatar-initial"><span>{{user.initial}}</span></div>
+			</div>
+		</li>
+	</ul>
+</li>

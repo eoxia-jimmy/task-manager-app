@@ -75,4 +75,12 @@ export class TaskComponent {
 		} );
 	}
 
+	public deleteTask(task: Task): void {
+		for ( let i in this.tasks ) {
+			if ( this.tasks[+i] == task ) {
+				this.tasks.splice(+i, 1);
+			}
+		}
+	}
+
 }

@@ -18,6 +18,7 @@ export class Task implements WPPost {
 	public comment_count: number;
 	public thumbnail_id: number;
 	public task_info: any;
+	public user_info: any;
 	public front_info: any;
 	public pointsCompleted: Point[] = [];
 	public pointsUncompleted: Point[] = [];

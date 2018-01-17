@@ -17,6 +17,7 @@ import { TaskService } from './services/task/task.service';
 import { PointService } from './services/point/point.service';
 import { CategoryService } from './services/category/category.service';
 import { Oauth10aService } from './services/oauth1.0a/oauth1.0a.service';
+import { UserService } from './services/user/user.service';
 
 import { MasonryDirective } from './directives/masonry/masonry.directive';
 import { WpeoDropdownDirective } from './directives/wpeo-dropdown/wpeo-dropdown.directive';
@@ -33,6 +34,9 @@ import { UserComponent } from './components/user/user.component';
 import { TaskOptionComponent } from './components/task-option/task-option.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PointOptionComponent } from './components/point-option/point-option.component';
+import { PointAddComponent } from './components/point-add/point-add.component';
+import { OwnerComponent } from './components/owner/owner.component';
+import { TimeHistoryComponent } from './components/time-history/time-history.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,10 @@ import { PointOptionComponent } from './components/point-option/point-option.com
     WpeoDropdownDirective,
     FlextextDirective,
     NavigationComponent,
-    PointOptionComponent
+    PointOptionComponent,
+    PointAddComponent,
+    OwnerComponent,
+    TimeHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +73,8 @@ import { PointOptionComponent } from './components/point-option/point-option.com
 		TaskService,
 		PointService,
 		CategoryService,
-		Oauth10aService
+		Oauth10aService,
+		UserService
 	],
   bootstrap: [AppComponent]
 })
