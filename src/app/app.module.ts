@@ -22,6 +22,8 @@ import { UserService } from './services/user/user.service';
 import { MasonryDirective } from './directives/masonry/masonry.directive';
 import { WpeoDropdownDirective } from './directives/wpeo-dropdown/wpeo-dropdown.directive';
 import { FlextextDirective } from './directives/flextext/flextext.directive';
+import { WpeoModalDirective } from './directives/wpeo-modal/wpeo-modal.directive';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -56,7 +58,8 @@ import { TimeHistoryComponent } from './components/time-history/time-history.com
     PointOptionComponent,
     PointAddComponent,
     OwnerComponent,
-    TimeHistoryComponent
+    TimeHistoryComponent,
+    WpeoModalDirective
   ],
   imports: [
     BrowserModule,

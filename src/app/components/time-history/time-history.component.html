@@ -1,1 +1,32 @@
-<span class="fa fa-history" aria-hidden="true"></span>
+
+<div appWpeoModal class="parent-container">
+
+	<!-- Le bouton déclenchant louverture de la popup -->
+	<a class="wpeo-button button-main wpeo-modal-event"
+		data-parent="parent-container"
+		data-target="wpeo-modal"><span class="fa fa-history" aria-hidden="true"></span>
+	</a>
+
+	<!-- Structure -->
+	<div class="wpeo-modal">
+		<div class="modal-container">
+
+			<!-- Entête -->
+			<div class="modal-header">
+				<h2 class="modal-title">Titre de la popup</h2>
+				<i class="modal-close fa fa-times"></i>
+			</div>
+
+			<!-- Corps -->
+			<div class="modal-content">
+				<p>...</p>
+			</div>
+
+			<!-- Footer -->
+			<div class="modal-footer">
+				<a class="wpeo-button button-grey button-uppercase modal-close"><span>Annuler</span></a>
+				<a class="wpeo-button button-main button-uppercase modal-close"><span>Valider</span></a>
+			</div>
+		</div>
+	</div>
+</div>
