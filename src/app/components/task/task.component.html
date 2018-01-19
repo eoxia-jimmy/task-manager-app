@@ -27,12 +27,27 @@
 			</ul>
 
 			<ul class="task-sub-header">
+				<li class="task-dead-line" *ngIf="task.last_history_time.id != 0">
+					<i class="dashicons dashicons-calendar-alt"></i>
+					<span>{{task.last_history_time.due_date.date_input.fr_FR.date }}</span>
+				</li>
+
 				<li class="task-elapsed-time">
 					<span class="fa fa-clock-o" aria-hidden="true"></span>
 					<span>{{task.time_info.time_display}}</span>
 				</li>
+
+				<li class="wpeo-task-estimated" *ngIf="task.last_history_time.id != 0">
+					<span class="estimated tooltip hover" aria-label="Estimated time">/ {{task.last_history_time.estimated_time}}</span>
+				</li>
+
 				<li>
 					<app-time-history [task]="task"></app-time-history>
+				</li>
+
+				<li class="display-method-buttons">
+					<span class="fa fa-list-ul" aria-hidden="true"></span>
+					<span class="fa fa-th-large" aria-hidden="true"></span>
 				</li>
 			</ul>
 

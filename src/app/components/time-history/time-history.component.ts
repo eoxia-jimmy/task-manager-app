@@ -16,4 +16,9 @@ export class TimeHistoryComponent implements OnInit {
   ngOnInit() {
   }
 
+	addTimeHistory(task: Task, estimated_time: string, date: string, custom: string): void {
+		console.log(estimated_time);
+		console.log(date);
+		console.log(custom);
+	}
 }

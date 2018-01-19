@@ -19,7 +19,7 @@
 		</ul>
 	</header>
 
-	<div class="wpeo-header-search hidden active">
+	<div [hidden]="! displayAdvanced" class="wpeo-header-search">
 		<ul class="wpeo-follower-search">
 			<li><span class="wpeo-follower-title">Utilisateurs</span></li>
 			<li>
@@ -41,26 +41,4 @@
 
 		<a class="action-input search-button">Rechercher</a>
 	</div>
-</div>
-
-<div class="wpeo-header-search hidden active" style="display: block;">
-	<ul class="wpeo-follower-search">
-		<li><span class="wpeo-follower-title">Utilisateurs</span></li>
-		<li>
-			<select name="follower_id_selected">
-				<option value=""></option><option value="1">admin</option><option value="3">admin2</option>		</select>
-		</li>
-	</ul>
-
-	<ul>
-		<li class="tag-search">
-			<input type="hidden" name="categories_id_selected">
-			<ul class="tags">
-				<li class="wpeo-tag-title">Catégories</li>
-				<li class="wpeo-tag-search" data-tag-id="10">test</li>
-			</ul>
-		</li>
-	</ul>
-
-	<a class="action-input search-button">Rechercher</a>
 </div>

@@ -13,13 +13,54 @@
 
 			<!-- Entête -->
 			<div class="modal-header">
-				<h2 class="modal-title">Titre de la popup</h2>
+				<h2 class="modal-title">#{{task.id}} Time historic</h2>
 				<i class="modal-close fa fa-times"></i>
 			</div>
 
 			<!-- Corps -->
 			<div class="modal-content">
-				<p>...</p>
+				<div class="history-time-container">
+
+					<div class="history-time-new">
+						<div class="wpeo-grid grid-2 wpeo-form">
+
+							<div>
+								<div class="form-element">
+									<label><i class="dashicons dashicons-clock"></i>Estimated time (min)</label>
+									<input #estimated_time type="text" />
+								</div>
+							</div>
+
+							<div>
+								<div class="group-date form-element">
+									<label><i class="dashicons dashicons-calendar-alt"></i> Due date</label>
+									<input #date type="text"/>
+								</div>
+
+								<div class="wpeo-form">
+									<div class="form-element">
+										<input type="radio" id="recursive" name="custom" #custom value="recursive">
+										<label for="recursive">Recursive time per month</label>
+
+										<input type="radio" id="due_date" name="custom" #custom value="due_date" checked>
+										<label for="due_date">Define due date</label>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div (click)="addTimeHistory(task, estimated_time.value, date.value, custom.value)" class="wpeo-button button-blue">
+							<span>Update task</span>
+						</div>
+					</div>
+
+					<h2>Event historic</h2>
+
+					<ul class="history-time-list">
+
+					</ul>
+				</div>
 			</div>
 
 			<!-- Footer -->
